@@ -14,4 +14,11 @@ export class SudokuLogicService {
         }
         return tableValues;
     }
+
+    generatePossibleGame(): SudokuTable {
+        const sudokuTable = this.generateEmptyTable();
+        sudokuTable[2][2] = { value: "5", isFixed: true };
+        sudokuTable[5][6] = { value: "1", isFixed: false }
+        return sudokuTable;
+    }
 }

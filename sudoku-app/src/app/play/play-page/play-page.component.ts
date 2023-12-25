@@ -16,4 +16,7 @@ export class PlayPageComponent implements OnInit {
     this.tableValues = this.sudokuLogicSvc.generateEmptyTable();
   }
 
+  onGenerateBtnClicked(): void {
+    this.tableValues = this.sudokuLogicSvc.generatePossibleGame();
+  }
 }
