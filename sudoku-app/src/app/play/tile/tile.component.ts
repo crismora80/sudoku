@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { IonInput } from '@ionic/angular';
 import { DefaultTileBorders, TileBorders } from './tile.model';
 
 @Component({
@@ -8,11 +9,18 @@ import { DefaultTileBorders, TileBorders } from './tile.model';
 })
 export class TileComponent implements OnInit {
   @Input() borders: TileBorders = DefaultTileBorders;
+  @ViewChild('input', { static: true }) ionInputEl!: IonInput;
 
-  value?: number;
-  numbersPattern = '/[1-9]/';
+  value?: string;
+  numbersPattern = /[^1-9]/;
 
   constructor() { }
 
   ngOnInit() { }
+
+  onInput(event: any) {
+    const value = event.target!.value as string;
+    const filteredValue = value.replace(this.numbersPattern, '').slice(0, 1);
+    this.ionInputEl.value = this.value = filteredValue;
+  }
 }

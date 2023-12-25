@@ -4,4 +4,5 @@
     'left-border-thick': borders.left,
     'bottom-border-thick': borders.bottom,
 }">
+    <ion-input #input clearOnEdit="true" [value]="value" (ionInput)="onInput($event)"></ion-input>
 </div>
