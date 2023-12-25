@@ -21,4 +21,13 @@ export class SudokuLogicService {
         sudokuTable[5][6] = { value: "1", isFixed: false }
         return sudokuTable;
     }
+
+    checkIfTableIsFull(sudokuTable: SudokuTable): boolean {
+        const emptyTile = sudokuTable.find(row => {
+            row.find(cell => {
+                !cell.value
+            })
+        });
+        return !emptyTile;
+    }
 }
