@@ -5,7 +5,7 @@
     'bottom-border-thick': borders.bottom,
     'focused': isInputFocused
 }">
-    <ion-input #input clearOnEdit="true" [value]="value" (ionInput)="onInput($event)" (ionFocus)="toggleFocused()"
-        (ionBlur)="toggleFocused()">
+    <ion-input #input clearOnEdit="true" [value]="tileValue?.value" (ionInput)="onInput($event)"
+        (ionFocus)="toggleFocused()" (ionBlur)="toggleFocused()">
     </ion-input>
 </div>

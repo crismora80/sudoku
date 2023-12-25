@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IonInput } from '@ionic/angular';
+import { TileValue } from '../table/table.mode';
 import { DefaultTileBorders, TileBorders } from './tile.model';
 
 @Component({
@@ -9,9 +10,9 @@ import { DefaultTileBorders, TileBorders } from './tile.model';
 })
 export class TileComponent implements OnInit {
   @Input() borders: TileBorders = DefaultTileBorders;
+  @Input() tileValue?: TileValue;
   @ViewChild('input', { static: true }) ionInputEl!: IonInput;
 
-  value?: string;
   numbersPattern = /[^1-9]/;
   isInputFocused = false;
 
@@ -22,7 +23,7 @@ export class TileComponent implements OnInit {
   onInput(event: any) {
     const value = event.target!.value as string;
     const filteredValue = value.replace(this.numbersPattern, '').slice(0, 1);
-    this.ionInputEl.value = this.value = filteredValue;
+    this.ionInputEl.value = this.tileValue!.value = filteredValue;
   }
 
   toggleFocused(): void {
