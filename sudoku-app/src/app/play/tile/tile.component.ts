@@ -13,6 +13,7 @@ export class TileComponent implements OnInit {
 
   value?: string;
   numbersPattern = /[^1-9]/;
+  isInputFocused = false;
 
   constructor() { }
 
@@ -22,5 +23,9 @@ export class TileComponent implements OnInit {
     const value = event.target!.value as string;
     const filteredValue = value.replace(this.numbersPattern, '').slice(0, 1);
     this.ionInputEl.value = this.value = filteredValue;
+  }
+
+  toggleFocused(): void {
+    this.isInputFocused = !this.isInputFocused;
   }
 }
