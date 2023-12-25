@@ -3,4 +3,4 @@ export interface TileValue {
     isFixed: boolean;
 }
 
-export interface TableValues extends Array<Array<TileValue>> { }
+export interface SudokuTable extends Array<Array<TileValue>> { }

@@ -7,6 +7,7 @@ import { PlayPageComponent } from './play-page/play-page.component';
 import { TableComponent } from './table/table.component';
 import { TileComponent } from './tile/tile.component';
 import { FormsModule } from '@angular/forms';
+import { SudokuLogicService } from './sudoku-logic/sudoku-logic.service';
 
 @NgModule({
   declarations: [PlayPageComponent, TableComponent, TileComponent],
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     IonicModule,
     PlayRoutingModule,
     FormsModule
-  ]
+  ],
+  providers: [SudokuLogicService]
 })
 export class PlayModule { }
