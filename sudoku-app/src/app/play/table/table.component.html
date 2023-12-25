@@ -1,0 +1,10 @@
+<div class="sudoku-table-row" *ngFor="let i of indexes">
+  <ng-container *ngFor="let j of indexes">
+    <app-tile [borders]="{
+      top: i % 3 === 1,
+      right: j % 3 === 0,
+      bottom: i % 3 == 0,
+      left: j % 3 == 1
+    }"></app-tile>
+  </ng-container>
+</div>

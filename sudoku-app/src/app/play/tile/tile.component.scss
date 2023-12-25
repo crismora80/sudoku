@@ -1,0 +1,21 @@
+.tile {
+    border: 1px solid black;
+    height: 40px;
+    width: 40px; 
+
+    &.top-border-thick {
+        border-top-width: 2px;
+    }
+
+    &.right-border-thick {
+        border-right-width: 2px;
+    }
+
+    &.bottom-border-thick {
+        border-bottom-width: 2px;
+    }
+
+    &.left-border-thick {
+        border-left-width: 2px;
+    }
+}
