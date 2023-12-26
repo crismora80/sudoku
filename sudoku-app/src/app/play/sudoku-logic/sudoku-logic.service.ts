@@ -23,11 +23,7 @@ export class SudokuLogicService {
     }
 
     checkIfTableIsFull(sudokuTable: SudokuTable): boolean {
-        const emptyTile = sudokuTable.find(row => {
-            row.find(cell => {
-                !cell.value
-            })
-        });
+        const emptyTile = sudokuTable.find(row => row.find(cell => !cell.value));
         return !emptyTile;
     }
 }
