@@ -161,6 +161,6 @@ describe('SudokuLogicService', () => {
             [{ value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "5", isFixed: false }, { value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "7", isFixed: false }, { value: "9", isFixed: false },]
         ];
         table[7][4].value = '';
-        expect(service.chooseRandomEmptyCellPosition(table)).toBe([7, 4]);
+        expect(service.chooseRandomEmptyCellPosition(table)).toEqual([7, 4]);
     })
 });
