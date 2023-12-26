@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SudokuTable, TileValue } from './table.mode';
+import { SudokuTable, TileValue } from './table.model';
 
 @Component({
   selector: 'app-table',

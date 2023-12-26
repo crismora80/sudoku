@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
-import { SudokuTable } from '../table/table.mode';
+import { SudokuTable } from '../table/table.model';
 
 @Component({
   selector: 'app-play-page',

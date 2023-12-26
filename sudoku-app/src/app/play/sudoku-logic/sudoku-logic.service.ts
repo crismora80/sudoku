@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { SudokuTable, TileValue } from '../table/table.mode';
+import { SudokuTable, TileValue } from '../table/table.model';
 
 @Injectable()
 export class SudokuLogicService {
@@ -67,5 +67,20 @@ export class SudokuLogicService {
         }
 
         return true;
+    }
+
+    chooseRandomEmptyCellPosition(sudokuTable: SudokuTable): [number, number] {
+        if (this.checkIfTableIsFull(sudokuTable)) {
+            return [-1, -1];
+        }
+
+        let i = Math.floor(Math.random() * 9);
+        let j = Math.floor(Math.random() * 9);
+        while (!!sudokuTable[i][j].value) {
+            i = Math.floor(Math.random() * 9);
+            j = Math.floor(Math.random() * 9);
+        }
+
+        return [i, j];
     }
 }

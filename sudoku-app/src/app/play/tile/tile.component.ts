@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IonInput } from '@ionic/angular';
-import { TileValue } from '../table/table.mode';
+import { TileValue } from '../table/table.model';
 import { DefaultTileBorders, TileBorders } from './tile.model';
 
 @Component({

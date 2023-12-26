@@ -132,4 +132,35 @@ describe('SudokuLogicService', () => {
         table[2][2].value = "9";
         expect(service.checkIfTableIsCorrect(table)).toBeFalsy();
     });
+
+    it('#chooseRandomEmptyCell returns [-1,-1] if table is full', () => {
+        const table = [
+            [{ value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "6", isFixed: false }, { value: "7", isFixed: false }, { value: "8", isFixed: false }, { value: "9", isFixed: false }, { value: "1", isFixed: false }, { value: "2", isFixed: false },],
+            [{ value: "6", isFixed: false }, { value: "7", isFixed: false }, { value: "2", isFixed: false }, { value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "8", isFixed: false },],
+            [{ value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "8", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "2", isFixed: false }, { value: "5", isFixed: false }, { value: "6", isFixed: false }, { value: "7", isFixed: false },],
+            [{ value: "8", isFixed: false }, { value: "5", isFixed: false }, { value: "9", isFixed: false }, { value: "7", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "4", isFixed: false }, { value: "2", isFixed: false }, { value: "3", isFixed: false },],
+            [{ value: "4", isFixed: false }, { value: "2", isFixed: false }, { value: "6", isFixed: false }, { value: "8", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "7", isFixed: false }, { value: "9", isFixed: false }, { value: "1", isFixed: false },],
+            [{ value: "7", isFixed: false }, { value: "1", isFixed: false }, { value: "3", isFixed: false }, { value: "9", isFixed: false }, { value: "2", isFixed: false }, { value: "4", isFixed: false }, { value: "8", isFixed: false }, { value: "5", isFixed: false }, { value: "6", isFixed: false },],
+            [{ value: "9", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "7", isFixed: false }, { value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "4", isFixed: false },],
+            [{ value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "7", isFixed: false }, { value: "4", isFixed: false }, { value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "6", isFixed: false }, { value: "3", isFixed: false }, { value: "5", isFixed: false },],
+            [{ value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "5", isFixed: false }, { value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "7", isFixed: false }, { value: "9", isFixed: false },]
+        ];
+        expect(service.chooseRandomEmptyCellPosition(table)).toEqual([-1, -1]);
+    })
+
+    it('#chooseRandomEmptyCellPosition returns the position of an empty cell in a table wher eonly one cell value is missing', () => {
+        const table = [
+            [{ value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "6", isFixed: false }, { value: "7", isFixed: false }, { value: "8", isFixed: false }, { value: "9", isFixed: false }, { value: "1", isFixed: false }, { value: "2", isFixed: false },],
+            [{ value: "6", isFixed: false }, { value: "7", isFixed: false }, { value: "2", isFixed: false }, { value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "8", isFixed: false },],
+            [{ value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "8", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "2", isFixed: false }, { value: "5", isFixed: false }, { value: "6", isFixed: false }, { value: "7", isFixed: false },],
+            [{ value: "8", isFixed: false }, { value: "5", isFixed: false }, { value: "9", isFixed: false }, { value: "7", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "4", isFixed: false }, { value: "2", isFixed: false }, { value: "3", isFixed: false },],
+            [{ value: "4", isFixed: false }, { value: "2", isFixed: false }, { value: "6", isFixed: false }, { value: "8", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "7", isFixed: false }, { value: "9", isFixed: false }, { value: "1", isFixed: false },],
+            [{ value: "7", isFixed: false }, { value: "1", isFixed: false }, { value: "3", isFixed: false }, { value: "9", isFixed: false }, { value: "2", isFixed: false }, { value: "4", isFixed: false }, { value: "8", isFixed: false }, { value: "5", isFixed: false }, { value: "6", isFixed: false },],
+            [{ value: "9", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "7", isFixed: false }, { value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "4", isFixed: false },],
+            [{ value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "7", isFixed: false }, { value: "4", isFixed: false }, { value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "6", isFixed: false }, { value: "3", isFixed: false }, { value: "5", isFixed: false },],
+            [{ value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "5", isFixed: false }, { value: "2", isFixed: false }, { value: "8", isFixed: false }, { value: "6", isFixed: false }, { value: "1", isFixed: false }, { value: "7", isFixed: false }, { value: "9", isFixed: false },]
+        ];
+        table[7][4].value = '';
+        expect(service.chooseRandomEmptyCellPosition(table)).toBe([7, 4]);
+    })
 });
