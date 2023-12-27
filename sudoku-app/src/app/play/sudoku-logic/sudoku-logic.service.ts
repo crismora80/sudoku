@@ -141,7 +141,9 @@ export class SudokuLogicService {
             let possibleValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
             if (!sudokuTable[i][j].value) {
-                possibleValues.forEach(x => {
+                while (possibleValues.length > 0) {
+                    let x = possibleValues[Math.floor(Math.random() * possibleValues.length)]
+                    possibleValues = possibleValues.filter(y => y !== x);
                     sudokuTable[i][j].value = x;
                     if (this.checkIfTableIsCorrect(sudokuTable)) {
                         if (this.checkIfTableIsFull(sudokuTable)) {
@@ -156,7 +158,7 @@ export class SudokuLogicService {
                             }
                         }
                     }
-                })
+                }
                 sudokuTable[i][j].value = undefined;
             } else {
                 if (j < 8) {
