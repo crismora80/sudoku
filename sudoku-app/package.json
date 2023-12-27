@@ -69,6 +69,7 @@
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupJest.ts"
-    ]
+    ],
+    "testEnvironment": "<rootDir>/src/FixJSDOMEnvironment.ts"
   }
 }

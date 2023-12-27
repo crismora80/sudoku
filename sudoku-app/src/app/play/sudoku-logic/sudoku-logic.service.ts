@@ -1,3 +1,4 @@
+import { ThisReceiver } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 
 import { SudokuTable, TileValue } from '../table/table.model';
@@ -82,5 +83,57 @@ export class SudokuLogicService {
         }
 
         return [i, j];
+    }
+
+    solveSudoku(sudokuTable: SudokuTable): SudokuTable[] {
+        const solutions: SudokuTable[] = [];
+
+        if (!this.checkIfTableIsCorrect(sudokuTable)) {
+            return [];
+        }
+        if (this.checkIfTableIsFull(sudokuTable)) {
+            return [sudokuTable];
+        }
+
+        this.DFS(sudokuTable, solutions);
+
+        return solutions;
+    }
+
+
+
+    private DFS(sudokuTable: SudokuTable, result: SudokuTable[], i = 0, j = 0): void {
+        if (result.length < 2) {
+            let possibleValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+            if (!sudokuTable[i][j].value) {
+                possibleValues.forEach(x => {
+                    sudokuTable[i][j].value = x;
+                    if (this.checkIfTableIsCorrect(sudokuTable)) {
+                        if (this.checkIfTableIsFull(sudokuTable)) {
+                            result.push(structuredClone(sudokuTable));
+                        } else {
+                            if (j < 8) {
+                                this.DFS(sudokuTable, result, i, j + 1);
+                            } else {
+                                if (i < 8) {
+                                    this.DFS(sudokuTable, result, i + 1, 0);
+                                }
+                            }
+                        }
+                    }
+                })
+                sudokuTable[i][j].value = undefined;
+            } else {
+                if (j < 8) {
+                    this.DFS(sudokuTable, result, i, j + 1);
+                } else {
+                    if (i < 8) {
+                        this.DFS(sudokuTable, result, i + 1, 0);
+                    }
+                }
+            }
+
+        }
     }
 }
