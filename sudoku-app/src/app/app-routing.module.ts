@@ -3,12 +3,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'choose-difficulty',
+    loadComponent: () => import('./choose-difficulty/choose-difficulty-page.component').then(mod => mod.ChooseDifficultyPageComponent)
+  },
+  {
     path: 'play',
-    loadChildren: () => import('./play/play.module').then( m => m.PlayModule)
+    loadChildren: () => import('./play/play.module').then(m => m.PlayModule)
   },
   {
     path: '',
-    redirectTo: 'play',
+    redirectTo: 'choose-difficulty',
     pathMatch: 'full'
   },
 ];
