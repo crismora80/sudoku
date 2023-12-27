@@ -1,3 +1,7 @@
-<ion-button (click)="navigateToPlayPage(DifficultyLevel.Easy)">Easy</ion-button>
-<ion-button (click)="navigateToPlayPage(DifficultyLevel.Medium)">Medium</ion-button>
-<ion-button (click)="navigateToPlayPage(DifficultyLevel.Hard)">Hard</ion-button>
+<div class="page">
+    <div class="buttons-container">
+        <app-button-text [text]="'Easy'" (click)="navigateToPlayPage(DifficultyLevel.Easy)"></app-button-text>
+        <app-button-text [text]="'Medium'" (click)="navigateToPlayPage(DifficultyLevel.Medium)"></app-button-text>
+        <app-button-text [text]="'Hard'" (click)="navigateToPlayPage(DifficultyLevel.Hard)"></app-button-text>
+    </div>
+</div>

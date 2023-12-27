@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DifficultyLevel } from '../play/table/table.model';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-choose-difficulty-page',
   templateUrl: './choose-difficulty-page.component.html',
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, SharedModule],
   styleUrls: ['./choose-difficulty-page.component.scss'],
 })
 export class ChooseDifficultyPageComponent {

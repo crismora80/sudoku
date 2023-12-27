@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PlayRoutingModule } from './play-routing.module';
 import { PlayPageComponent } from './play-page/play-page.component';
 import { TableComponent } from './table/table.component';
 import { TileComponent } from './tile/tile.component';
-import { FormsModule } from '@angular/forms';
 import { SudokuLogicService } from './sudoku-logic/sudoku-logic.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [PlayPageComponent, TableComponent, TileComponent],
@@ -15,7 +16,8 @@ import { SudokuLogicService } from './sudoku-logic/sudoku-logic.service';
     CommonModule,
     IonicModule,
     PlayRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [SudokuLogicService]
 })

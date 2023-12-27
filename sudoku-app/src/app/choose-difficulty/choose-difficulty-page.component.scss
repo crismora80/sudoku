@@ -1,0 +1,17 @@
+@import './../../theme/constants.scss';
+
+.page {
+    height: 100%;
+    width: 100%;
+    background-color: $light-gray;
+    display: flex;
+    align-self: center;
+    align-items: center;
+
+    .buttons-container {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
