@@ -1,3 +1,5 @@
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IonInput } from '@ionic/angular';
 import { TileValue } from '../table/table.model';
@@ -12,6 +14,7 @@ export class TileComponent implements OnInit {
   @Input() borders: TileBorders = DefaultTileBorders;
   @Input() tileValue?: TileValue;
   @ViewChild('input', { static: true }) ionInputEl!: IonInput;
+  @Output() valueChanged = new EventEmitter<void>();
 
   numbersPattern = /[^1-9]/;
   isInputFocused = false;
@@ -24,6 +27,8 @@ export class TileComponent implements OnInit {
     const value = event.target!.value as string;
     const filteredValue = value.replace(this.numbersPattern, '').slice(0, 1);
     this.ionInputEl.value = this.tileValue!.value = filteredValue;
+
+    this.valueChanged.emit();
   }
 
   toggleFocused(): void {

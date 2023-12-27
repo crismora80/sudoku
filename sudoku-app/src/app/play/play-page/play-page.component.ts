@@ -9,13 +9,13 @@ import { DifficultyLevel, SudokuTable } from '../table/table.model';
   styleUrls: ['./play-page.component.scss'],
 })
 export class PlayPageComponent implements OnInit {
-  tableValues: SudokuTable = [];
+  sudokuTable: SudokuTable = [];
   difficultyLevel: DifficultyLevel = DifficultyLevel.Easy;
 
   constructor(private sudokuLogicSvc: SudokuLogicService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.tableValues = this.sudokuLogicSvc.generateEmptyTable();
+    this.sudokuTable = this.sudokuLogicSvc.generateEmptyTable();
     this.route.queryParams.subscribe((queryParams: Params) => {
       this.difficultyLevel = Number.parseInt(queryParams['difficulty']);
       this.generateNewTable();
@@ -26,7 +26,13 @@ export class PlayPageComponent implements OnInit {
     this.generateNewTable();
   }
 
+  onValueChanged(): void {
+    if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
+      alert('Correct!')
+    }
+  }
+
   private generateNewTable(): void {
-    this.tableValues = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
+    this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
   }
 }

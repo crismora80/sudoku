@@ -1,2 +1,2 @@
-<app-table [tableValues]="tableValues"></app-table>
+<app-table [tableValues]="sudokuTable" (valueChanged)="onValueChanged()"></app-table>
 <ion-button (click)="onNewGameBtnClicked()">New Game</ion-button>
