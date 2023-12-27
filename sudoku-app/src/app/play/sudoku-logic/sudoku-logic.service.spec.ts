@@ -1,4 +1,5 @@
 import { TestBed } from "@angular/core/testing";
+import { DifficultyLevel } from "../table/table.model";
 import { SudokuLogicService } from "./sudoku-logic.service";
 
 describe('SudokuLogicService', () => {
@@ -298,5 +299,38 @@ describe('SudokuLogicService', () => {
         const solution = service.solveSudoku(initialTable);
         expect(solution.length).toEqual(1);
         expect(solution[0]).toEqual(expectedTable);
+    });
+
+    it('#generateSudoku returns correct table with easy difficulty', () => {
+        const table = service.generateSudoku(DifficultyLevel.Easy);
+
+        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect(service.checkIfTableIsFull(table)).toBeFalsy();
+        expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
+
+        const solution = service.solveSudoku(table);
+        expect(solution.length).toEqual(1);
+    });
+
+    it('#generateSudoku returns correct table with medium difficulty', () => {
+        const table = service.generateSudoku(DifficultyLevel.Medium);
+
+        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect(service.checkIfTableIsFull(table)).toBeFalsy();
+        expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
+
+        const solution = service.solveSudoku(table);
+        expect(solution.length).toEqual(1);
+    });
+
+    it('#generateSudoku returns correct table with hard difficulty', () => {
+        const table = service.generateSudoku(DifficultyLevel.Hard);
+
+        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect(service.checkIfTableIsFull(table)).toBeFalsy();
+        expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
+
+        const solution = service.solveSudoku(table);
+        expect(solution.length).toEqual(1);
     });
 });

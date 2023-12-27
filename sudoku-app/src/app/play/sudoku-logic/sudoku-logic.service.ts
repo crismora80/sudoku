@@ -1,7 +1,6 @@
-import { ThisReceiver } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 
-import { SudokuTable, TileValue } from '../table/table.model';
+import { SudokuTable, DifficultyLevel } from '../table/table.model';
 
 @Injectable()
 export class SudokuLogicService {
@@ -26,6 +25,11 @@ export class SudokuLogicService {
     checkIfTableIsFull(sudokuTable: SudokuTable): boolean {
         const emptyTile = sudokuTable.find(row => row.find(cell => !cell.value));
         return !emptyTile;
+    }
+
+    checkIfTableIsEmpty(sudokuTable: SudokuTable): boolean {
+        const fullTile = sudokuTable.find(row => row.find(cell => cell.value));
+        return !fullTile;
     }
 
     checkIfTableIsCorrect(sudokuTable: SudokuTable): boolean {
@@ -85,6 +89,21 @@ export class SudokuLogicService {
         return [i, j];
     }
 
+    chooseRandomFullCellPosition(sudokuTable: SudokuTable): [number, number] {
+        if (this.checkIfTableIsEmpty(sudokuTable)) {
+            return [-1, -1];
+        }
+
+        let i = Math.floor(Math.random() * 9);
+        let j = Math.floor(Math.random() * 9);
+        while (!sudokuTable[i][j].value) {
+            i = Math.floor(Math.random() * 9);
+            j = Math.floor(Math.random() * 9);
+        }
+
+        return [i, j];
+    }
+
     solveSudoku(sudokuTable: SudokuTable): SudokuTable[] {
         const solutions: SudokuTable[] = [];
 
@@ -95,15 +114,37 @@ export class SudokuLogicService {
             return [sudokuTable];
         }
 
-        this.DFS(sudokuTable, solutions);
+        this.DFS_solve(sudokuTable, solutions);
 
         return solutions;
     }
 
+    generateSudoku(difficultyLevel: DifficultyLevel): SudokuTable {
+        const sudokuTable = this.generateEmptyTable();
+        const solutions: SudokuTable[] = [];
+        this.DFS_solve(sudokuTable, solutions, 0, 0, 1);
+        const completeSudokuTable = solutions[0];
+        let noToRemove = 0;
+        switch (difficultyLevel) {
+            case DifficultyLevel.Easy:
+                // [42, 46]
+                noToRemove = Math.floor(Math.random() * 5) + 42;
+                break;
+            case DifficultyLevel.Medium:
+                // [44, 48]
+                noToRemove = Math.floor(Math.random() * 5) + 44;
+                break;
+            case DifficultyLevel.Hard:
+                // [51, 53]
+                noToRemove = Math.floor(Math.random() * 3) + 51;
+                break;
+        }
+        this.DFS_remove(completeSudokuTable, noToRemove);
+        return completeSudokuTable;
+    }
 
-
-    private DFS(sudokuTable: SudokuTable, result: SudokuTable[], i = 0, j = 0): void {
-        if (result.length < 2) {
+    private DFS_solve(sudokuTable: SudokuTable, result: SudokuTable[], i = 0, j = 0, maxNoOfSolutions = 2): void {
+        if (result.length < maxNoOfSolutions) {
             let possibleValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
             if (!sudokuTable[i][j].value) {
@@ -114,10 +155,10 @@ export class SudokuLogicService {
                             result.push(structuredClone(sudokuTable));
                         } else {
                             if (j < 8) {
-                                this.DFS(sudokuTable, result, i, j + 1);
+                                this.DFS_solve(sudokuTable, result, i, j + 1, maxNoOfSolutions);
                             } else {
                                 if (i < 8) {
-                                    this.DFS(sudokuTable, result, i + 1, 0);
+                                    this.DFS_solve(sudokuTable, result, i + 1, 0, maxNoOfSolutions);
                                 }
                             }
                         }
@@ -126,14 +167,37 @@ export class SudokuLogicService {
                 sudokuTable[i][j].value = undefined;
             } else {
                 if (j < 8) {
-                    this.DFS(sudokuTable, result, i, j + 1);
+                    this.DFS_solve(sudokuTable, result, i, j + 1, maxNoOfSolutions);
                 } else {
                     if (i < 8) {
-                        this.DFS(sudokuTable, result, i + 1, 0);
+                        this.DFS_solve(sudokuTable, result, i + 1, 0, maxNoOfSolutions);
                     }
                 }
             }
 
+        }
+    }
+
+    private DFS_remove(sudokuTable: SudokuTable, noToRemove: number, noOfRemoved = 0): void {
+        if (noOfRemoved < noToRemove) {
+            const solutions: SudokuTable[] = [];
+
+            let [i, j] = this.chooseRandomFullCellPosition(sudokuTable);
+            let valueToBeRemoved = sudokuTable[i][j].value;
+            sudokuTable[i][j].value = undefined;
+            this.DFS_solve(sudokuTable, solutions);
+
+            while (solutions.length > 1) {
+                solutions.length = 0;
+                sudokuTable[i][j].value = valueToBeRemoved;
+
+                [i, j] = this.chooseRandomFullCellPosition(sudokuTable);
+                valueToBeRemoved = sudokuTable[i][j].value;
+                sudokuTable[i][j].value = undefined;
+                this.DFS_solve(sudokuTable, solutions);
+            }
+
+            this.DFS_remove(sudokuTable, noToRemove, noOfRemoved + 1);
         }
     }
 }

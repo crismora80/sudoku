@@ -4,3 +4,9 @@ export interface TileValue {
 }
 
 export interface SudokuTable extends Array<Array<TileValue>> { }
+
+export enum DifficultyLevel {
+    Easy,
+    Medium,
+    Hard
+}
