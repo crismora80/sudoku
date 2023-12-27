@@ -9,7 +9,7 @@ export class SudokuLogicService {
         for (let i = 0; i < 9; i++) {
             tableValues[i] = [];
             for (let j = 0; j < 9; j++) {
-                tableValues[i][j] = { isFixed: false };
+                tableValues[i][j] = { isFixed: true };
             }
         }
         return tableValues;
@@ -180,15 +180,18 @@ export class SudokuLogicService {
             let [i, j] = this.chooseRandomFullCellPosition(sudokuTable);
             let valueToBeRemoved = sudokuTable[i][j].value;
             sudokuTable[i][j].value = undefined;
+            sudokuTable[i][j].isFixed = false;
             this.DFS_solve(sudokuTable, solutions);
 
             while (solutions.length > 1) {
                 solutions.length = 0;
                 sudokuTable[i][j].value = valueToBeRemoved;
+                sudokuTable[i][j].isFixed = true;
 
                 [i, j] = this.chooseRandomFullCellPosition(sudokuTable);
                 valueToBeRemoved = sudokuTable[i][j].value;
                 sudokuTable[i][j].value = undefined;
+                sudokuTable[i][j].isFixed = false;
                 this.DFS_solve(sudokuTable, solutions);
             }
 

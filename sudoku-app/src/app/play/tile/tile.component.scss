@@ -21,11 +21,17 @@
 
     &.focused {
         border: 3px solid blue;
+        background-color: lightblue;
+    }
+
+    &.variable-input {
+        color: darkgreen;
     }
 
     ion-input {
         --highlight-color-focused: unset;
         caret-color: rgba(0, 0, 0, 0);
         text-align: center;
+        opacity: 1;
     }
 }
