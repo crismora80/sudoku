@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
-import { SudokuTable } from '../table/table.model';
+import { DifficultyLevel, SudokuTable } from '../table/table.model';
 
 @Component({
   selector: 'app-play-page',
@@ -17,6 +17,6 @@ export class PlayPageComponent implements OnInit {
   }
 
   onGenerateBtnClicked(): void {
-    this.tableValues = this.sudokuLogicSvc.generatePossibleGame();
+    this.tableValues = this.sudokuLogicSvc.generateSudoku(DifficultyLevel.Easy);
   }
 }
