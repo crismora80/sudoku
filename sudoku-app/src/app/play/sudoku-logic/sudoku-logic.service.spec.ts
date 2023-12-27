@@ -29,6 +29,17 @@ describe('SudokuLogicService', () => {
         expect(service.checkIfTableIsFull(table)).toBeTruthy();
     });
 
+    it('#checkIfTableIsEmpty should return false if there is one value in the table', () => {
+        const table = service.generateEmptyTable();
+        table[8][8].value = "1";
+        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+    });
+
+    it('#checkIfTableIsEmpty should return true if the table does not contain any value', () => {
+        const table = service.generateEmptyTable();
+        expect(service.checkIfTableIsEmpty(table)).toBeTruthy();
+    });
+
     it('#checkIfTableIsCorrect should return true if the table is empty', () => {
         const table = service.generateEmptyTable();
         expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
@@ -191,7 +202,7 @@ describe('SudokuLogicService', () => {
         expect(service.chooseRandomEmptyCellPosition(table)).toEqual([-1, -1]);
     })
 
-    it('#chooseRandomEmptyCellPosition returns the position of an empty cell in a table wher eonly one cell value is missing', () => {
+    it('#chooseRandomEmptyCellPosition returns the position of an empty cell in a table where only one cell value is missing', () => {
         const table = [
             [{ value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "6", isFixed: false }, { value: "7", isFixed: false }, { value: "8", isFixed: false }, { value: "9", isFixed: false }, { value: "1", isFixed: false }, { value: "2", isFixed: false },],
             [{ value: "6", isFixed: false }, { value: "7", isFixed: false }, { value: "2", isFixed: false }, { value: "1", isFixed: false }, { value: "9", isFixed: false }, { value: "5", isFixed: false }, { value: "3", isFixed: false }, { value: "4", isFixed: false }, { value: "8", isFixed: false },],
@@ -205,6 +216,17 @@ describe('SudokuLogicService', () => {
         ];
         table[7][4].value = '';
         expect(service.chooseRandomEmptyCellPosition(table)).toEqual([7, 4]);
+    });
+
+    it('#chooseRandomFullCellPosition returns [-1,-1] if table is empty', () => {
+        const table = service.generateEmptyTable();
+        expect(service.chooseRandomFullCellPosition(table)).toEqual([-1, -1]);
+    })
+
+    it('#chooseRandomFullCellPosition returns the position a full cell if the table contains only one full cell', () => {
+        const table = service.generateEmptyTable();
+        table[7][4].value = '1';
+        expect(service.chooseRandomFullCellPosition(table)).toEqual([7, 4]);
     });
 
     it('#solveSudoku returns returns no solution for non-full incorrect table', () => {
