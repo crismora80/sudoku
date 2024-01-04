@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
@@ -11,8 +12,13 @@ import { DifficultyLevel, SudokuTable } from '../table/table.model';
 export class PlayPageComponent implements OnInit {
   sudokuTable: SudokuTable = [];
   difficultyLevel: DifficultyLevel = DifficultyLevel.Easy;
+  isLoading = true;
 
-  constructor(private sudokuLogicSvc: SudokuLogicService, private route: ActivatedRoute) { }
+  constructor(
+    private sudokuLogicSvc: SudokuLogicService,
+    private route: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.sudokuTable = this.sudokuLogicSvc.generateEmptyTable();
@@ -23,6 +29,8 @@ export class PlayPageComponent implements OnInit {
   }
 
   onNewGameBtnClicked(): void {
+    this.isLoading = true;
+    this.changeDetectorRef.detectChanges();
     this.generateNewTable();
   }
 
@@ -33,6 +41,9 @@ export class PlayPageComponent implements OnInit {
   }
 
   private generateNewTable(): void {
-    this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
+    setTimeout(() => {
+      this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
+      this.isLoading = false;
+    });
   }
 }

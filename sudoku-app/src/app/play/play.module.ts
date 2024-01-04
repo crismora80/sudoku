@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 
 import { PlayRoutingModule } from './play-routing.module';
@@ -17,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     IonicModule,
     PlayRoutingModule,
     FormsModule,
-    SharedModule
+    MatProgressSpinnerModule,
+    SharedModule,
   ],
   providers: [SudokuLogicService]
 })
