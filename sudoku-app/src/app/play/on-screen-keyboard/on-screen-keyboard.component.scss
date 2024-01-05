@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+
+    .key {
+        flex-grow: 1;
+    }
+}

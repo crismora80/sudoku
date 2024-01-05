@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
 import { LoadingController } from '@ionic/angular';
+import { TableMediatorService } from '../table/table.mediator.service';
 
 @Component({
   selector: 'app-play-page',
@@ -18,7 +19,8 @@ export class PlayPageComponent implements OnInit {
   constructor(
     private sudokuLogicSvc: SudokuLogicService,
     private route: ActivatedRoute,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private tableMediatorSvc: TableMediatorService
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,10 @@ export class PlayPageComponent implements OnInit {
 
   onResetGame(): void {
     this.sudokuLogicSvc.resetTable(this.sudokuTable);
+  }
+
+  onKeyPressed(digit: string) {
+    this.tableMediatorSvc.updateCell$.next(digit);
   }
 
   private generateNewTable(): void {

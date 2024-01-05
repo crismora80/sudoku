@@ -1,4 +1,4 @@
-<app-table [tableValues]="sudokuTable" (valueChanged)="onValueChanged()">
-</app-table>
+<app-table [sudokuTable]="sudokuTable" (valueChanged)="onValueChanged()"></app-table>
+<app-on-screen-keyboard (keyPressed)="onKeyPressed($event)"></app-on-screen-keyboard>
 <app-button-text [text]="'Reset Game'" (click)="onResetGame()"></app-button-text>
 <app-button-text [text]="'New Game'" (click)="onNewGameBtnClicked()"></app-button-text>

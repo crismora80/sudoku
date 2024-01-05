@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
+import { OnScreenKeyboardComponent } from './on-screen-keyboard/on-screen-keyboard.component';
 import { PlayRoutingModule } from './play-routing.module';
 import { PlayPageComponent } from './play-page/play-page.component';
 import { TableComponent } from './table/table.component';
@@ -11,7 +12,7 @@ import { SudokuLogicService } from './sudoku-logic/sudoku-logic.service';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [PlayPageComponent, TableComponent, TileComponent],
+  declarations: [OnScreenKeyboardComponent, PlayPageComponent, TableComponent, TileComponent],
   imports: [
     CommonModule,
     IonicModule,
