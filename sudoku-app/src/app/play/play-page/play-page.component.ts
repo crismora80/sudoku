@@ -48,6 +48,10 @@ export class PlayPageComponent implements OnInit {
     }
   }
 
+  onResetGame(): void {
+    this.sudokuLogicSvc.resetTable(this.sudokuTable);
+  }
+
   private generateNewTable(): void {
     setTimeout(() => {
       this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);

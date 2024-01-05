@@ -5,14 +5,23 @@ import { SudokuTable, DifficultyLevel } from '../table/table.model';
 @Injectable()
 export class SudokuLogicService {
     generateEmptyTable(): SudokuTable {
-        const tableValues: SudokuTable = [];
+        const sudokuTable: SudokuTable = [];
         for (let i = 0; i < 9; i++) {
-            tableValues[i] = [];
+            sudokuTable[i] = [];
             for (let j = 0; j < 9; j++) {
-                tableValues[i][j] = { isFixed: true };
+                sudokuTable[i][j] = { isFixed: true };
             }
         }
-        return tableValues;
+        return sudokuTable;
+    }
+
+    resetTable(sudokuTable: SudokuTable): void {
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                if (!sudokuTable[i][j].isFixed)
+                    sudokuTable[i][j].value = undefined;
+            }
+        }
     }
 
     checkIfTableIsFull(sudokuTable: SudokuTable): boolean {
