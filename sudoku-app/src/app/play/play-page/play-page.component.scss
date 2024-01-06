@@ -1,5 +1,11 @@
+@import './../../../theme/constants.scss';
+
+:host {
+    background-color: $light-gray;
+}
+
 ion-header {
-    box-shadow: none;
+    --ion-background-color: transparent;
 }
 
 app-table {
