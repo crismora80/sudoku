@@ -1,3 +1,11 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
 <app-table [sudokuTable]="sudokuTable" (valueChanged)="onValueChanged()"></app-table>
 <app-on-screen-keyboard (keyPressed)="onKeyPressed($event)"></app-on-screen-keyboard>
 <app-button-text [text]="'Reset Game'" (click)="onResetGame()"></app-button-text>
