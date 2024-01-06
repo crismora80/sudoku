@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
 import { ButtonTextComponent } from './button-text/button-text/button-text.component';
+import { ButtonIconComponent } from './button-icon/button-icon.component';
 
 @NgModule({
-    declarations: [ButtonTextComponent],
+    declarations: [ButtonTextComponent, ButtonIconComponent],
     imports: [
         CommonModule,
         IonicModule
     ],
-    exports: [ButtonTextComponent]
+    exports: [ButtonTextComponent, ButtonIconComponent]
 })
 export class SharedModule { }

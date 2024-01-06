@@ -5,6 +5,7 @@ import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
 import { LoadingController } from '@ionic/angular';
 import { TableMediatorService } from '../table/table.mediator.service';
+import { ButtonIcon } from './../../shared/button-icon/button-icon.module';
 
 @Component({
   selector: 'app-play-page',
@@ -15,6 +16,8 @@ export class PlayPageComponent implements OnInit {
   sudokuTable: SudokuTable = [];
   difficultyLevel: DifficultyLevel = DifficultyLevel.Easy;
   loading?: HTMLIonLoadingElement;
+
+  ButtonIcon = ButtonIcon;
 
   constructor(
     private sudokuLogicSvc: SudokuLogicService,
