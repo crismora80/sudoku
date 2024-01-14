@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'ChineseRocks';
-    src: url('assets/fonts/chinese-rocks-free/chinese rocks rg.otf') format('truetype');
+    font-family: 'Humaroid';
+    src: url('assets/fonts/humaroid/humaroid.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -8,5 +8,5 @@
 body,
 ion-button,
 app-tile .tile ion-input {
-    font-family: 'ChineseRocks' !important;
+    font-family: 'Humaroid' !important;
 }
