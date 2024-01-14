@@ -6,7 +6,7 @@
     'focused': isInputFocused,
     'variable-input': !tileValue?.isFixed
 }">
-    <ion-input #input clearOnEdit="true" [value]="tileValue?.value" [disabled]="tileValue?.isFixed"
+    <ion-input #input clearOnEdit="true" readonly [value]="tileValue?.value" [disabled]="tileValue?.isFixed"
         (ionInput)="onInput($event)" (ionFocus)="toggleFocused()" (ionBlur)="toggleFocused()">
     </ion-input>
 </div>
