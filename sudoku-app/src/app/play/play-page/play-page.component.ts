@@ -34,16 +34,7 @@ export class PlayPageComponent implements OnInit {
     })
   }
 
-  async onNewGameBtnClicked(): Promise<void> {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Loading...'
-    });
-
-    if (this.loading) {
-      this.loading.present();
-    }
-
-
+  onNewGameBtnClicked(): void {
     this.generateNewTable();
   }
 
@@ -61,13 +52,25 @@ export class PlayPageComponent implements OnInit {
     this.tableMediatorSvc.updateCell$.next(digit);
   }
 
-  private generateNewTable(): void {
-    setTimeout(() => {
-      this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
+  private async generateNewTable(): Promise<void> {
+    await this.showLoadingPopup();
 
-      if (this.loading) {
-        this.loading.dismiss();
-      }
-    });
+    this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
+
+    if (this.loading) {
+      this.loading.dismiss();
+    }
   }
+
+  private async showLoadingPopup(): Promise<void> {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading...'
+    });
+
+    if (this.loading) {
+      return this.loading.present();
+    }
+    return new Promise<void>(() => { });
+  }
+
 }
