@@ -7,7 +7,7 @@
   <ion-button *ngFor="let digit of lastDigits" class="key" color="light" (click)="onKeyPressed(digit)">
     {{digit}}
   </ion-button>
-  <ion-button class="key" color="light" (click)="onKeyPressed('')">
+  <ion-button class="key clear" color="light" (click)="onKeyPressed('')">
     <ion-icon name="close-outline"></ion-icon>
   </ion-button>
 </div>
