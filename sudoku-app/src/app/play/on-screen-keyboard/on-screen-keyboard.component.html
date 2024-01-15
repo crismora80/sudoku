@@ -1,9 +1,9 @@
-<div class="container">
+<div class="row">
   <ion-button *ngFor="let digit of firstDigits" class="key" color="light" (click)="onKeyPressed(digit)">
     {{digit}}
   </ion-button>
 </div>
-<div class="container">
+<div class="row">
   <ion-button *ngFor="let digit of lastDigits" class="key" color="light" (click)="onKeyPressed(digit)">
     {{digit}}
   </ion-button>
