@@ -13,11 +13,11 @@ import { DefaultTileBorders, TileBorders } from './tile.model';
 export class TileComponent implements OnInit {
   @Input() borders: TileBorders = DefaultTileBorders;
   @Input() tileValue?: TileValue;
+  @Input() focused = false;
   @ViewChild('input', { static: true }) ionInputEl!: IonInput;
   @Output() valueChanged = new EventEmitter<void>();
 
   numbersPattern = /[^1-9]/;
-  isInputFocused = false;
 
   constructor() { }
 
@@ -29,9 +29,5 @@ export class TileComponent implements OnInit {
     this.ionInputEl.value = this.tileValue!.value = filteredValue;
 
     this.valueChanged.emit();
-  }
-
-  toggleFocused(): void {
-    this.isInputFocused = !this.isInputFocused;
   }
 }

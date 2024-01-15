@@ -5,6 +5,8 @@
       right: j % 3 === 2,
       bottom: i % 3 == 2,
       left: j % 3 == 0
-    }" [tileValue]="sudokuTable[i][j]" (click)="onTileClicked(i, j)" (valueChanged)="onValueChanged()"></app-tile>
+    }" [tileValue]="sudokuTable[i][j]" [focused]="i === selectedX && j === selectedY" (click)="onTileClicked(i, j)"
+      (valueChanged)="onValueChanged()">
+    </app-tile>
   </ng-container>
 </div>

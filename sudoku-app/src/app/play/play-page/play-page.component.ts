@@ -38,18 +38,15 @@ export class PlayPageComponent implements OnInit {
     this.generateNewTable();
   }
 
-  onValueChanged(): void {
-    if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
-      alert('Correct!')
-    }
-  }
-
   onResetGame(): void {
     this.sudokuLogicSvc.resetTable(this.sudokuTable);
   }
 
   onKeyPressed(digit: string) {
     this.tableMediatorSvc.updateCell$.next(digit);
+    // if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
+    //   alert('Correct!')
+    // }
   }
 
   private async generateNewTable(): Promise<void> {
