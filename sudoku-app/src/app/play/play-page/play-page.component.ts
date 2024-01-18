@@ -1,11 +1,12 @@
-import { ChangeDetectorRef } from '@angular/core';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+
 import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
-import { LoadingController } from '@ionic/angular';
 import { TableMediatorService } from '../table/table.mediator.service';
 import { ButtonIcon } from './../../shared/button-icon/button-icon.module';
+import { GameChooserService } from '../game-chooser/game-chooser.service';
 
 @Component({
   selector: 'app-play-page',
@@ -22,20 +23,20 @@ export class PlayPageComponent implements OnInit {
   constructor(
     private sudokuLogicSvc: SudokuLogicService,
     private route: ActivatedRoute,
-    private loadingCtrl: LoadingController,
-    private tableMediatorSvc: TableMediatorService
+    private tableMediatorSvc: TableMediatorService,
+    private gameChooserSvc: GameChooserService
   ) { }
 
   ngOnInit() {
     this.sudokuTable = this.sudokuLogicSvc.generateEmptyTable();
     this.route.queryParams.subscribe((queryParams: Params) => {
       this.difficultyLevel = Number.parseInt(queryParams['difficulty']);
-      this.generateNewTable();
+      this.getNewTable();
     })
   }
 
   onNewGameBtnClicked(): void {
-    this.generateNewTable();
+    this.getNewTable();
   }
 
   onResetGame(): void {
@@ -49,25 +50,7 @@ export class PlayPageComponent implements OnInit {
     // }
   }
 
-  private async generateNewTable(): Promise<void> {
-    await this.showLoadingPopup();
-
-    this.sudokuTable = this.sudokuLogicSvc.generateSudoku(this.difficultyLevel);
-
-    if (this.loading) {
-      this.loading.dismiss();
-    }
+  private async getNewTable(): Promise<void> {
+    this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
   }
-
-  private async showLoadingPopup(): Promise<void> {
-    this.loading = await this.loadingCtrl.create({
-      message: 'Loading...'
-    });
-
-    if (this.loading) {
-      return this.loading.present();
-    }
-    return new Promise<void>(() => { });
-  }
-
 }

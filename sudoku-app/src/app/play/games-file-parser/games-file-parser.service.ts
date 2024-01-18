@@ -15,59 +15,13 @@ export class GamesFileParserService {
 
   constructor(private http: HttpClient) { }
 
-  getGame(difficultyLevel: DifficultyLevel): Observable<SudokuTable> {
-    const fileName = this.getFileName(difficultyLevel);
-    return this.readFile(fileName)
-      .pipe(map((result: number[][][]) => {
-        const randomGame = this.chooseRandomGame(result);
-        return this.convertNumbersArrayToModel(randomGame);
-      }));
-  }
-
   writeGames(sudokuTables: SudokuTable[], filename: string): Observable<any> {
     const games = this.convertModelToNumbersArray(sudokuTables);
-    return this.http.post(this.WRITE_TO_FILE_URL, { games, filename });
+    return this.http.post(this.WRITE_TO_FILE_URL, { games, filename } as PostBody);
   }
 
-  private readFile(fileName: string): Observable<number[][][]> {
-    return this.http.get<any>(fileName);
-  }
-
-  private getFileName(difficultyLevel: DifficultyLevel): string {
-    switch (difficultyLevel) {
-      case DifficultyLevel.Easy:
-        return this.BASE_URL + 'easy.json';
-      case DifficultyLevel.Medium:
-        return this.BASE_URL + 'medium.json';
-      case DifficultyLevel.Hard:
-        return this.BASE_URL + 'hard.json';
-      default:
-        return '';
-    }
-  }
-
-  private chooseRandomGame(games: number[][][]): number[][] {
-    const noOfGames = games.length;
-    const randomGameIndex = Math.random() * noOfGames;
-    return games[randomGameIndex];
-  }
-
-  private convertNumbersArrayToModel(game: number[][]): SudokuTable {
-    const sudokuTable: SudokuTable = [];
-    for (let i = 0; i < game.length; i++) {
-      sudokuTable.push([]);
-      for (let j = 0; j < game[i].length; j++) {
-        if (game[i][j]) {
-          sudokuTable[i].push({
-            value: game[i][j].toString(),
-            isFixed: true
-          })
-        } else {
-          sudokuTable[i].push({ isFixed: false })
-        }
-      }
-    }
-    return sudokuTable;
+  readGames(fileName: string): Observable<number[][][]> {
+    return this.http.get<any>(this.BASE_URL + fileName);
   }
 
   private convertModelToNumbersArray(sudokuTables: SudokuTable[]): number[][][] {
