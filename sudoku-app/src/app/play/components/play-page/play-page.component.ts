@@ -17,6 +17,7 @@ export class PlayPageComponent implements OnInit {
   sudokuTable: SudokuTable = [];
   difficultyLevel: DifficultyLevel = DifficultyLevel.Easy;
   loading?: HTMLIonLoadingElement;
+  alertButtons = ['No', 'Yes'];
 
   ButtonIcon = ButtonIcon;
 
@@ -35,11 +36,11 @@ export class PlayPageComponent implements OnInit {
     })
   }
 
-  onNewGameBtnClicked(): void {
+  onConfirmNewGameClicked(): void {
     this.getNewTable();
   }
 
-  onResetGame(): void {
+  onConfirmResetGameClicked(): void {
     this.sudokuLogicSvc.resetTable(this.sudokuTable);
   }
 
