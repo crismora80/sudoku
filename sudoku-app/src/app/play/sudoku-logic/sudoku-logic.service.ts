@@ -29,11 +29,6 @@ export class SudokuLogicService {
         return !emptyTile;
     }
 
-    checkIfTableIsEmpty(sudokuTable: SudokuTable): boolean {
-        const fullTile = sudokuTable.find(row => row.find(cell => cell.value));
-        return !fullTile;
-    }
-
     checkIfTableIsCorrect(sudokuTable: SudokuTable): boolean {
         // check if rows have duplicates
         for (let i = 0; i < 9; i++) {
@@ -206,5 +201,10 @@ export class SudokuLogicService {
 
             this.DFS_remove(sudokuTable, noToRemove, noOfRemoved + 1);
         }
+    }
+
+    private checkIfTableIsEmpty(sudokuTable: SudokuTable): boolean {
+        const fullTile = sudokuTable.find(row => row.find(cell => cell.value));
+        return !fullTile;
     }
 }
