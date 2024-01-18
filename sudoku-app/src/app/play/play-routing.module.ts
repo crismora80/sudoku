@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PlayPageComponent } from './play-page/play-page.component';
+import { PlayPageComponent } from './components/play-page/play-page.component';
 
 const routes: Routes = [
   {
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PlayRoutingModule {}
+export class PlayRoutingModule { }

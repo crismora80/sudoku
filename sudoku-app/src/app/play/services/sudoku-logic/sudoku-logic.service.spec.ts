@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { DifficultyLevel } from "../table/table.model";
+import { DifficultyLevel } from "../../components/table/table.model";
 import { SudokuLogicService } from "./sudoku-logic.service";
 
 describe('SudokuLogicService', () => {

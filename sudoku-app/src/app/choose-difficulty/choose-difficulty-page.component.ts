@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
-import { DifficultyLevel } from '../play/table/table.model';
+import { DifficultyLevel } from '../play/components/table/table.model';
 import { SharedModule } from '../shared/shared.module';
 
 @Component({

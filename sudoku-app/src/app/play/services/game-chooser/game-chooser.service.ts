@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { GamesFileParserService } from '../games-file-parser/games-file-parser.service';
-import { DifficultyLevel, SudokuTable } from '../table/table.model';
+import { DifficultyLevel, SudokuTable } from '../../components/table/table.model';
 
 @Injectable()
 export class GameChooserService {

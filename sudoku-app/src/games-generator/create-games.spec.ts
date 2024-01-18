@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GamesFileParserService } from '../app/play/games-file-parser/games-file-parser.service';
-import { DifficultyLevel, SudokuTable } from '../app/play/table/table.model';
-import { SudokuLogicService } from '../app/play/sudoku-logic/sudoku-logic.service';
+import { GamesFileParserService } from '../app/play/services/games-file-parser/games-file-parser.service';
+import { DifficultyLevel, SudokuTable } from '../app/play/components/table/table.model';
+import { SudokuLogicService } from '../app/play/services/sudoku-logic/sudoku-logic.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('createGames', () => {

@@ -2,11 +2,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { SudokuLogicService } from '../sudoku-logic/sudoku-logic.service';
+import { SudokuLogicService } from '../../services/sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
 import { TableMediatorService } from '../table/table.mediator.service';
-import { ButtonIcon } from './../../shared/button-icon/button-icon.module';
-import { GameChooserService } from '../game-chooser/game-chooser.service';
+import { ButtonIcon } from '../../../shared/button-icon/button-icon.module';
+import { GameChooserService } from '../../services/game-chooser/game-chooser.service';
 
 @Component({
   selector: 'app-play-page',

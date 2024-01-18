@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { SudokuTable, DifficultyLevel } from '../table/table.model';
+import { SudokuTable, DifficultyLevel } from '../../components/table/table.model';
 
 @Injectable()
 export class SudokuLogicService {
