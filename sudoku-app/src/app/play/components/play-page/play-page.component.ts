@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 import { SudokuLogicService } from '../../services/sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
@@ -24,8 +25,10 @@ export class PlayPageComponent implements OnInit {
   constructor(
     private sudokuLogicSvc: SudokuLogicService,
     private route: ActivatedRoute,
+    private router: Router,
     private tableMediatorSvc: TableMediatorService,
-    private gameChooserSvc: GameChooserService
+    private gameChooserSvc: GameChooserService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -44,14 +47,32 @@ export class PlayPageComponent implements OnInit {
     this.sudokuLogicSvc.resetTable(this.sudokuTable);
   }
 
-  onKeyPressed(digit: string) {
+  async onKeyPressed(digit: string) {
     this.tableMediatorSvc.updateCell$.next(digit);
-    // if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
-    //   alert('Correct!')
-    // }
+    if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
+      const alert = await this.alertController.create({
+        header: "Congratulations",
+        message: "You solved the puzzle!",
+        buttons: [
+          {
+            text: 'Close',
+            handler: this.goBackToMainPage.bind(this)
+          },
+          {
+            text: 'Start new game',
+            handler: this.onConfirmNewGameClicked.bind(this)
+          }]
+      });
+      alert.present();
+    }
+  }
+
+  private goBackToMainPage(): void {
+    this.router.navigateByUrl('');
   }
 
   private async getNewTable(): Promise<void> {
     this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+    // this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
   }
 }

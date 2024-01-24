@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { GamesFileParserService } from '../games-file-parser/games-file-parser.service';
 import { DifficultyLevel, SudokuTable } from '../../components/table/table.model';
+import { of } from 'rxjs';
 
 @Injectable()
 export class GameChooserService {
@@ -15,6 +16,24 @@ export class GameChooserService {
         const randomGame = this.chooseRandomGame(result);
         return this.convertNumbersArrayToModel(randomGame);
       }));
+  }
+
+  // get game with only one missing number
+  getDummyGame(): Observable<SudokuTable> {
+    const table = [
+      [{ value: "5", isFixed: true }, { value: "3", isFixed: true }, { value: "4", isFixed: true }, { value: "6", isFixed: true }, { value: "7", isFixed: true }, { value: "8", isFixed: true }, { value: "9", isFixed: true }, { value: "1", isFixed: true }, { value: "2", isFixed: true },],
+      [{ value: "6", isFixed: true }, { value: "7", isFixed: true }, { value: "2", isFixed: true }, { value: "1", isFixed: true }, { value: "9", isFixed: true }, { value: "5", isFixed: true }, { value: "3", isFixed: true }, { value: "4", isFixed: true }, { value: "8", isFixed: true },],
+      [{ value: "1", isFixed: true }, { value: "9", isFixed: true }, { value: "8", isFixed: true }, { value: "3", isFixed: true }, { value: "4", isFixed: true }, { value: "2", isFixed: true }, { value: "5", isFixed: true }, { value: "6", isFixed: true }, { value: "7", isFixed: true },],
+      [{ value: "8", isFixed: true }, { value: "5", isFixed: true }, { value: "9", isFixed: true }, { value: "7", isFixed: true }, { value: "6", isFixed: true }, { value: "1", isFixed: true }, { value: "4", isFixed: true }, { value: "2", isFixed: true }, { value: "3", isFixed: true },],
+      [{ value: "4", isFixed: true }, { value: "2", isFixed: true }, { value: "6", isFixed: true }, { value: "8", isFixed: true }, { value: "5", isFixed: true }, { value: "3", isFixed: true }, { value: "7", isFixed: true }, { value: "9", isFixed: true }, { value: "1", isFixed: true },],
+      [{ value: "7", isFixed: true }, { value: "1", isFixed: true }, { value: "3", isFixed: true }, { value: "9", isFixed: true }, { value: "2", isFixed: true }, { value: "4", isFixed: true }, { value: "8", isFixed: true }, { value: "5", isFixed: true }, { value: "6", isFixed: true },],
+      [{ value: "9", isFixed: true }, { value: "6", isFixed: true }, { value: "1", isFixed: true }, { value: "5", isFixed: true }, { value: "3", isFixed: true }, { value: "7", isFixed: true }, { value: "2", isFixed: true }, { value: "8", isFixed: true }, { value: "4", isFixed: true },],
+      [{ value: "2", isFixed: true }, { value: "8", isFixed: true }, { value: "7", isFixed: true }, { value: "4", isFixed: true }, { value: "1", isFixed: true }, { value: "9", isFixed: true }, { value: "6", isFixed: true }, { value: "3", isFixed: true }, { value: "5", isFixed: true },],
+      [{ value: "3", isFixed: true }, { value: "4", isFixed: true }, { value: "5", isFixed: true }, { value: "2", isFixed: true }, { value: "8", isFixed: true }, { value: "6", isFixed: true }, { value: "1", isFixed: true }, { value: "7", isFixed: true }, { value: "9", isFixed: true },]
+    ] as SudokuTable;
+    table[7][4].value = '';
+    table[7][4].isFixed = false;
+    return of(table);
   }
 
   private getFileName(difficultyLevel: DifficultyLevel): string {
