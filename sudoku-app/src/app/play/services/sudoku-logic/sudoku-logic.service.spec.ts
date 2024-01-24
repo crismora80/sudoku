@@ -32,12 +32,12 @@ describe('SudokuLogicService', () => {
     it('#checkIfTableIsEmpty should return false if there is one value in the table', () => {
         const table = service.generateEmptyTable();
         table[8][8].value = "1";
-        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect((service as any).checkIfTableIsEmpty(table)).toBeFalsy();
     });
 
     it('#checkIfTableIsEmpty should return true if the table does not contain any value', () => {
         const table = service.generateEmptyTable();
-        expect(service.checkIfTableIsEmpty(table)).toBeTruthy();
+        expect((service as any).checkIfTableIsEmpty(table)).toBeTruthy();
     });
 
     it('#checkIfTableIsCorrect should return true if the table is empty', () => {
@@ -326,7 +326,7 @@ describe('SudokuLogicService', () => {
     it('#generateSudoku returns correct table with easy difficulty', () => {
         const table = service.generateSudoku(DifficultyLevel.Easy);
 
-        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect((service as any).checkIfTableIsEmpty(table)).toBeFalsy();
         expect(service.checkIfTableIsFull(table)).toBeFalsy();
         expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
 
@@ -337,7 +337,7 @@ describe('SudokuLogicService', () => {
     it('#generateSudoku returns correct table with medium difficulty', () => {
         const table = service.generateSudoku(DifficultyLevel.Medium);
 
-        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect((service as any).checkIfTableIsEmpty(table)).toBeFalsy();
         expect(service.checkIfTableIsFull(table)).toBeFalsy();
         expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
 
@@ -348,7 +348,7 @@ describe('SudokuLogicService', () => {
     it('#generateSudoku returns correct table with hard difficulty', () => {
         const table = service.generateSudoku(DifficultyLevel.Hard);
 
-        expect(service.checkIfTableIsEmpty(table)).toBeFalsy();
+        expect((service as any).checkIfTableIsEmpty(table)).toBeFalsy();
         expect(service.checkIfTableIsFull(table)).toBeFalsy();
         expect(service.checkIfTableIsCorrect(table)).toBeTruthy();
 

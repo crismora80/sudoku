@@ -26,6 +26,10 @@
 
     &.variable-input {
         color: darkgreen;
+
+        &.wrong {
+            color: red;
+        }
     }
 
     ion-input {

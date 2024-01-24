@@ -4,7 +4,8 @@
     'left-border-thick': borders.left,
     'bottom-border-thick': borders.bottom,
     'focused': focused,
-    'variable-input': !tileValue?.isFixed
+    'variable-input': !tileValue?.isFixed,
+    'wrong': tileValue?.isWrong
 }">
     <ion-input #input clearOnEdit="true" readonly [value]="tileValue?.value" [disabled]="tileValue?.isFixed"
         (ionInput)="onInput($event)">

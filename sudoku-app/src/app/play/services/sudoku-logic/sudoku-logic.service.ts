@@ -9,7 +9,7 @@ export class SudokuLogicService {
         for (let i = 0; i < 9; i++) {
             sudokuTable[i] = [];
             for (let j = 0; j < 9; j++) {
-                sudokuTable[i][j] = { isFixed: true };
+                sudokuTable[i][j] = { isFixed: true, isWrong: false };
             }
         }
         return sudokuTable;
@@ -30,45 +30,35 @@ export class SudokuLogicService {
     }
 
     checkIfTableIsCorrect(sudokuTable: SudokuTable): boolean {
-        // check if rows have duplicates
         for (let i = 0; i < 9; i++) {
-            const definedValuesInRow = sudokuTable[i].filter(cell => !!cell.value).map(cell => cell.value);
-            if ((new Set(definedValuesInRow)).size !== definedValuesInRow.length) {
+            if (!this.checkIfRowIsCorrect(sudokuTable, i)) {
                 return false;
             }
         }
 
-        // check if columns have duplicates 
         for (let j = 0; j < 9; j++) {
-            const definedValuesInColumn = [];
-            for (let i = 0; i < 9; i++) {
-                if (!!sudokuTable[i][j].value) {
-                    definedValuesInColumn.push(sudokuTable[i][j].value)
-                }
-            }
-            if ((new Set(definedValuesInColumn)).size !== definedValuesInColumn.length) {
+            if (!this.checkIfColumnIsCorrect(sudokuTable, j)) {
                 return false;
             }
         }
 
-        // check if 3x3 squares have duplicate elements
         for (let k = 0; k < 3; k++) {
             for (let l = 0; l < 3; l++) {
-                const definedValuesInSquare = [];
-                for (let i = k * 3; i < (k + 1) * 3; i++) {
-                    for (let j = l * 3; j < (l + 1) * 3; j++) {
-                        if (!!sudokuTable[i][j].value) {
-                            definedValuesInSquare.push(sudokuTable[i][j].value)
-                        }
-                    }
-                }
-                if ((new Set(definedValuesInSquare)).size !== definedValuesInSquare.length) {
+                if (!this.checkIfSquareIsCorrect(sudokuTable, k, l)) {
                     return false;
                 }
             }
         }
 
         return true;
+    }
+
+    // x - integer in [0,8]
+    // y - integer in [0,8]
+    checkIfCellIsCorrect(sudokuTable: SudokuTable, x: number, y: number): boolean {
+        return this.checkIfRowIsCorrect(sudokuTable, x)
+            && this.checkIfColumnIsCorrect(sudokuTable, y)
+            && this.checkIfSquareIsCorrect(sudokuTable, Math.floor(x / 3), Math.floor(y / 3));
     }
 
     chooseRandomEmptyCellPosition(sudokuTable: SudokuTable): [number, number] {
@@ -206,5 +196,42 @@ export class SudokuLogicService {
     private checkIfTableIsEmpty(sudokuTable: SudokuTable): boolean {
         const fullTile = sudokuTable.find(row => row.find(cell => cell.value));
         return !fullTile;
+    }
+
+    private checkIfRowIsCorrect(sudokuTable: SudokuTable, row: number): boolean {
+        const definedValuesInRow = sudokuTable[row].filter(cell => !!cell.value).map(cell => cell.value);
+        if ((new Set(definedValuesInRow)).size !== definedValuesInRow.length) {
+            return false;
+        }
+        return true;
+    }
+
+    private checkIfColumnIsCorrect(sudokuTable: SudokuTable, column: number): boolean {
+        const definedValuesInColumn = [];
+        for (let i = 0; i < 9; i++) {
+            if (!!sudokuTable[i][column].value) {
+                definedValuesInColumn.push(sudokuTable[i][column].value)
+            }
+        }
+        if ((new Set(definedValuesInColumn)).size !== definedValuesInColumn.length) {
+            return false;
+        }
+        return true;
+    }
+
+    // square X - number in {0, 1, 2}
+    private checkIfSquareIsCorrect(sudokuTable: SudokuTable, squareX: number, squareY: number): boolean {
+        const definedValuesInSquare = [];
+        for (let i = squareX * 3; i < (squareX + 1) * 3; i++) {
+            for (let j = squareY * 3; j < (squareY + 1) * 3; j++) {
+                if (!!sudokuTable[i][j].value) {
+                    definedValuesInSquare.push(sudokuTable[i][j].value)
+                }
+            }
+        }
+        if ((new Set(definedValuesInSquare)).size !== definedValuesInSquare.length) {
+            return false;
+        }
+        return true;
     }
 }

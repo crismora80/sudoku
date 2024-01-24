@@ -44,10 +44,11 @@ export class GameChooserService {
         if (game[i][j]) {
           sudokuTable[i].push({
             value: game[i][j].toString(),
-            isFixed: true
+            isFixed: true,
+            isWrong: false
           })
         } else {
-          sudokuTable[i].push({ isFixed: false })
+          sudokuTable[i].push({ isFixed: false, isWrong: false })
         }
       }
     }
