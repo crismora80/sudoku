@@ -1,4 +1,7 @@
 .sudoku-table-row {
     display: flex;
     aspect-ratio: 9/1;
+
+    width: min(100%, 50vh);
+    margin: auto;
 }
