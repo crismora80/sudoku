@@ -5,8 +5,7 @@
     font-style: normal;
 }
 
-body,
-ion-button,
-app-tile .tile ion-input {
+body {
     font-family: 'Humaroid' !important;
+    --ion-font-family: 'Humaroid' !important;
 }
