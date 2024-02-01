@@ -13,10 +13,9 @@ import { SudokuLogicService } from './services/sudoku-logic/sudoku-logic.service
 import { SharedModule } from '../shared/shared.module';
 import { GamesFileParserService } from './services/games-file-parser/games-file-parser.service';
 import { GameChooserService } from './services/game-chooser/game-chooser.service';
-import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
-  declarations: [OnScreenKeyboardComponent, PlayPageComponent, TableComponent, TileComponent, ConfirmationModalComponent],
+  declarations: [OnScreenKeyboardComponent, PlayPageComponent, TableComponent, TileComponent],
   imports: [
     CommonModule,
     IonicModule,

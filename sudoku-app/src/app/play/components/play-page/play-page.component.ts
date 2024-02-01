@@ -1,16 +1,13 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core';
+import { AlertController } from '@ionic/angular';
 
 import { SudokuLogicService } from '../../services/sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
 import { TableMediatorService } from '../table/table.mediator.service';
 import { ButtonIcon } from '../../../shared/button-icon/button-icon.module';
 import { GameChooserService } from '../../services/game-chooser/game-chooser.service';
-import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
-import { MODAL_ACTIONS } from '../confirmation-modal/confirmation-modal.model';
 
 @Component({
   selector: 'app-play-page',
@@ -31,8 +28,7 @@ export class PlayPageComponent implements OnInit {
     private router: Router,
     private tableMediatorSvc: TableMediatorService,
     private gameChooserSvc: GameChooserService,
-    private alertController: AlertController,
-    private modalCtrl: ModalController
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -49,18 +45,6 @@ export class PlayPageComponent implements OnInit {
 
   onConfirmResetGameClicked(): void {
     this.sudokuLogicSvc.resetTable(this.sudokuTable);
-  }
-
-  async openResetModal(): Promise<void> {
-    // const modal = await this.modalCtrl.create({
-    //   component: ConfirmationModalComponent,
-    // });
-    // modal.onDidDismiss().then((x: OverlayEventDetail) => {
-    //   if (x.role === MODAL_ACTIONS.confirm) {
-    //     this.sudokuLogicSvc.resetTable(this.sudokuTable);
-    //   }
-    // })
-    // modal.present();
   }
 
   async onKeyPressed(digit: string) {
