@@ -20,28 +20,42 @@ ion-modal {
 }
 
 ion-alert {
+    .alert-wrapper.sc-ion-alert-md {
+        max-width: max-content;
 
-    .alert-title,
-    .alert-message {
-        text-align: center;
-    }
+        .alert-title.sc-ion-alert-md {
+            font-size: 2rem;
+        }
 
-    .alert-button-group.sc-ion-alert-md {
-        justify-content: center;
+        .alert-message.sc-ion-alert-md {
+            font-size: 1.25rem;
+            max-width: 70vw;
+        }
 
-        .alert-button.sc-ion-alert-md {
-            background-color: var(--ion-color-primary);
-            color: white;
-            border-radius: 64px;
-            padding: 0 26px;
-            font-size: 1rem;
+        .alert-title,
+        .alert-message {
+            text-align: center;
+        }
 
-            &:last-child {
-                margin-right: 0;
-            }
+        .alert-button-group.sc-ion-alert-md {
+            justify-content: center;
+            padding: 8px 16px 16px;
 
-            &.secondary-btn {
-                background-color: $gray;
+            .alert-button.sc-ion-alert-md {
+                background-color: var(--ion-color-primary);
+                color: white;
+                border-radius: 64px;
+                padding: 0 26px;
+                font-size: 1.5rem;
+                height: 27px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &.secondary-btn {
+                    background-color: $gray;
+                }
             }
         }
     }
