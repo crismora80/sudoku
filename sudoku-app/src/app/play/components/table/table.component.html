@@ -1,6 +1,6 @@
 <div class="sudoku-table-row" *ngFor="let i of indexes">
   <ng-container *ngFor="let j of indexes">
-    <app-tile [borders]="{
+    <app-tile [ngClass]="{'enabled': !sudokuTable[i][j].isFixed}" [borders]="{
       top: i % 3 === 0,
       right: j % 3 === 2,
       bottom: i % 3 == 2,

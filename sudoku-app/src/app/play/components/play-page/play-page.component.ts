@@ -91,7 +91,7 @@ export class PlayPageComponent implements OnInit {
   }
 
   private async getNewTable(): Promise<void> {
-    // this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
-    this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+    this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+    // this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
   }
 }
