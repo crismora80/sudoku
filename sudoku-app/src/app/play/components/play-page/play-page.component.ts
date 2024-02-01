@@ -1,13 +1,16 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core';
 
 import { SudokuLogicService } from '../../services/sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
 import { TableMediatorService } from '../table/table.mediator.service';
 import { ButtonIcon } from '../../../shared/button-icon/button-icon.module';
 import { GameChooserService } from '../../services/game-chooser/game-chooser.service';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { MODAL_ACTIONS } from '../confirmation-modal/confirmation-modal.model';
 
 @Component({
   selector: 'app-play-page',
@@ -28,7 +31,8 @@ export class PlayPageComponent implements OnInit {
     private router: Router,
     private tableMediatorSvc: TableMediatorService,
     private gameChooserSvc: GameChooserService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -47,21 +51,36 @@ export class PlayPageComponent implements OnInit {
     this.sudokuLogicSvc.resetTable(this.sudokuTable);
   }
 
+  async openResetModal(): Promise<void> {
+    // const modal = await this.modalCtrl.create({
+    //   component: ConfirmationModalComponent,
+    // });
+    // modal.onDidDismiss().then((x: OverlayEventDetail) => {
+    //   if (x.role === MODAL_ACTIONS.confirm) {
+    //     this.sudokuLogicSvc.resetTable(this.sudokuTable);
+    //   }
+    // })
+    // modal.present();
+  }
+
   async onKeyPressed(digit: string) {
     this.tableMediatorSvc.updateCell$.next(digit);
     if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
       const alert = await this.alertController.create({
         header: "Congratulations",
         message: "You solved the puzzle!",
+        backdropDismiss: false,
         buttons: [
           {
             text: 'Close',
+            cssClass: 'secondary-btn',
             handler: this.goBackToMainPage.bind(this)
           },
           {
-            text: 'Start new game',
+            text: 'New game',
             handler: this.onConfirmNewGameClicked.bind(this)
-          }]
+          }
+        ]
       });
       alert.present();
     }
@@ -72,7 +91,7 @@ export class PlayPageComponent implements OnInit {
   }
 
   private async getNewTable(): Promise<void> {
-    this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
-    // this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+    // this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+    this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
   }
 }

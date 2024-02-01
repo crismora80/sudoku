@@ -1,3 +1,5 @@
+@import './theme/constants.scss';
+
 @font-face {
     font-family: 'Humaroid';
     src: url('assets/fonts/humaroid/humaroid.otf') format('truetype');
@@ -8,4 +10,39 @@
 body {
     font-family: 'Humaroid' !important;
     --ion-font-family: 'Humaroid' !important;
+}
+
+ion-modal {
+    --height: 30%;
+    --width: 70%;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-alert {
+
+    .alert-title,
+    .alert-message {
+        text-align: center;
+    }
+
+    .alert-button-group.sc-ion-alert-md {
+        justify-content: center;
+
+        .alert-button.sc-ion-alert-md {
+            background-color: var(--ion-color-primary);
+            color: white;
+            border-radius: 64px;
+            padding: 0 26px;
+            font-size: 1rem;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.secondary-btn {
+                background-color: $gray;
+            }
+        }
+    }
 }
