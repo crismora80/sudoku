@@ -13,6 +13,7 @@ import { SudokuLogicService } from './services/sudoku-logic/sudoku-logic.service
 import { SharedModule } from '../shared/shared.module';
 import { GamesFileParserService } from './services/games-file-parser/games-file-parser.service';
 import { GameChooserService } from './services/game-chooser/game-chooser.service';
+import { CanDeactivateGuard } from './guards/can.leave.page.guard';
 
 @NgModule({
   declarations: [OnScreenKeyboardComponent, PlayPageComponent, TableComponent, TileComponent],
@@ -24,6 +25,6 @@ import { GameChooserService } from './services/game-chooser/game-chooser.service
     SharedModule,
     HttpClientModule
   ],
-  providers: [SudokuLogicService, GamesFileParserService, GameChooserService]
+  providers: [SudokuLogicService, GamesFileParserService, GameChooserService, CanDeactivateGuard]
 })
 export class PlayModule { }
