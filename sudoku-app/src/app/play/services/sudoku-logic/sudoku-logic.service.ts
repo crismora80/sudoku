@@ -53,12 +53,16 @@ export class SudokuLogicService {
         return true;
     }
 
-    // x - integer in [0,8]
-    // y - integer in [0,8]
-    checkIfCellIsCorrect(sudokuTable: SudokuTable, x: number, y: number): boolean {
-        return this.checkIfRowIsCorrect(sudokuTable, x)
-            && this.checkIfColumnIsCorrect(sudokuTable, y)
-            && this.checkIfSquareIsCorrect(sudokuTable, Math.floor(x / 3), Math.floor(y / 3));
+    validateAllCells(sudokuTable: SudokuTable): void {
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                if (!!sudokuTable[i][j].value) {
+                    sudokuTable[i][j].isWrong = !this.checkIfCellIsCorrect(sudokuTable, i, j);
+                } else {
+                    sudokuTable[i][j].isWrong = false;
+                }
+            }
+        }
     }
 
     chooseRandomEmptyCellPosition(sudokuTable: SudokuTable): [number, number] {
@@ -232,6 +236,42 @@ export class SudokuLogicService {
         if ((new Set(definedValuesInSquare)).size !== definedValuesInSquare.length) {
             return false;
         }
+        return true;
+    }
+
+    // x - integer in [0,8]
+    // y - integer in [0,8]
+    private checkIfCellIsCorrect(sudokuTable: SudokuTable, x: number, y: number): boolean {
+        const value = sudokuTable[x][y].value;
+
+        if (sudokuTable[x].filter(cell => cell.value === value).length > 1) {
+            return false;
+        }
+
+        let appearancesInColumn = 0;
+        for (let i = 0; i < 9; i++) {
+            if (sudokuTable[i][y].value === value) {
+                appearancesInColumn++;
+            }
+        }
+        if (appearancesInColumn > 1) {
+            return false;
+        }
+
+        let appearencersInSquare = 0;
+        const squareX = Math.floor(x / 3);
+        const squareY = Math.floor(y / 3);
+        for (let i = squareX * 3; i < (squareX + 1) * 3; i++) {
+            for (let j = squareY * 3; j < (squareY + 1) * 3; j++) {
+                if (sudokuTable[i][j].value == value) {
+                    appearencersInSquare++;
+                }
+            }
+        }
+        if (appearencersInSquare > 1) {
+            return false;
+        }
+
         return true;
     }
 }

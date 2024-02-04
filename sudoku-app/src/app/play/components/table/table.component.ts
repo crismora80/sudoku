@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { TableMediatorService } from './table.mediator.service';
 
-import { SudokuTable, TileValue } from './table.model';
+import { SudokuTable } from './table.model';
 import { SudokuLogicService } from '../../services/sudoku-logic/sudoku-logic.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.tableMediatorSvc.updateCell$.pipe(takeUntil(this.destroy$)).subscribe((value: string) => {
       if (this.selectedX >= 0 && this.selectedY >= 0) {
         this.sudokuTable[this.selectedX][this.selectedY].value = value;
-        this.sudokuTable[this.selectedX][this.selectedY].isWrong = !this.sudokuLogicService.checkIfCellIsCorrect(this.sudokuTable, this.selectedX, this.selectedY)
+        this.sudokuLogicService.validateAllCells(this.sudokuTable);
       }
     })
   }

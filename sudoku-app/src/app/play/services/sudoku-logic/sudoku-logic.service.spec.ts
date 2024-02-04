@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { DifficultyLevel } from "../../components/table/table.model";
+import { DifficultyLevel, SudokuTable } from '../../components/table/table.model';
 import { SudokuLogicService } from "./sudoku-logic.service";
 
 describe('SudokuLogicService', () => {
@@ -354,5 +354,265 @@ describe('SudokuLogicService', () => {
 
         const solution = service.solveSudoku(table);
         expect(solution.length).toEqual(1);
+    });
+
+    it('#validateAllCells considers empty table to be valid', () => {
+        const table = service.generateEmptyTable();
+
+        service.validateAllCells(table);
+
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                expect(table[i][j].isWrong).toBeFalsy();
+            }
+        }
+    });
+    it('#validateAllCells considers complete correct table to be valid', () => {
+        const table = service.generateSudoku(DifficultyLevel.Easy);
+
+        service.validateAllCells(table);
+
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                expect(table[i][j].isWrong).toBeFalsy();
+            }
+        }
+    });
+
+    it('#validateAllCells validates row correctly', () => {
+        const table = service.generateEmptyTable();
+        table[2][0].value = '8';
+        table[2][1].value = '7';
+        table[2][2].value = '5';
+        table[2][3].value = '';
+        table[2][4].value = '5';
+        table[2][5].value = '1';
+        table[2][6].value = '7';
+        table[2][7].value = '';
+        table[2][8].value = '5';
+
+        service.validateAllCells(table);
+
+        expect(table[2][0].isWrong).toBeFalsy();
+        expect(table[2][1].isWrong).toBeTruthy();
+        expect(table[2][2].isWrong).toBeTruthy();
+        expect(table[2][3].isWrong).toBeFalsy();
+        expect(table[2][4].isWrong).toBeTruthy();
+        expect(table[2][5].isWrong).toBeFalsy();
+        expect(table[2][6].isWrong).toBeTruthy();
+        expect(table[2][7].isWrong).toBeFalsy();
+        expect(table[2][8].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells validates column correctly', () => {
+        const table = service.generateEmptyTable();
+        table[0][3].value = '8';
+        table[1][3].value = '7';
+        table[2][3].value = '5';
+        table[3][3].value = '';
+        table[4][3].value = '5';
+        table[5][3].value = '1';
+        table[6][3].value = '7';
+        table[7][3].value = '';
+        table[8][3].value = '5';
+
+        service.validateAllCells(table);
+
+        expect(table[0][3].isWrong).toBeFalsy();
+        expect(table[1][3].isWrong).toBeTruthy();
+        expect(table[2][3].isWrong).toBeTruthy();
+        expect(table[3][3].isWrong).toBeFalsy();
+        expect(table[4][3].isWrong).toBeTruthy();
+        expect(table[5][3].isWrong).toBeFalsy();
+        expect(table[6][3].isWrong).toBeTruthy();
+        expect(table[7][3].isWrong).toBeFalsy();
+        expect(table[8][3].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells validates square correctly', () => {
+        const table = service.generateEmptyTable();
+        table[6][3].value = '8';
+        table[6][4].value = '7';
+        table[6][5].value = '5';
+        table[7][3].value = '';
+        table[7][4].value = '5';
+        table[7][5].value = '1';
+        table[8][3].value = '7';
+        table[8][4].value = '';
+        table[8][5].value = '5';
+
+        service.validateAllCells(table);
+
+        expect(table[6][3].isWrong).toBeFalsy();
+        expect(table[6][4].isWrong).toBeTruthy();
+        expect(table[6][5].isWrong).toBeTruthy();
+        expect(table[7][3].isWrong).toBeFalsy();
+        expect(table[7][4].isWrong).toBeTruthy();
+        expect(table[7][5].isWrong).toBeFalsy();
+        expect(table[8][3].isWrong).toBeTruthy();
+        expect(table[8][4].isWrong).toBeFalsy();
+        expect(table[8][5].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells revalidates row correctly after value is corrected', () => {
+        const table = service.generateEmptyTable();
+        table[2][0].value = '8';
+        table[2][1].value = '7';
+        table[2][2].value = '5';
+        table[2][3].value = '';
+        table[2][4].value = '5';
+        table[2][5].value = '1';
+        table[2][6].value = '7';
+        table[2][7].value = '';
+        table[2][8].value = '5';
+
+        service.validateAllCells(table);
+        table[2][6].value = '6';
+        service.validateAllCells(table);
+
+        expect(table[2][0].isWrong).toBeFalsy();
+        expect(table[2][1].isWrong).toBeFalsy();
+        expect(table[2][2].isWrong).toBeTruthy();
+        expect(table[2][3].isWrong).toBeFalsy();
+        expect(table[2][4].isWrong).toBeTruthy();
+        expect(table[2][5].isWrong).toBeFalsy();
+        expect(table[2][6].isWrong).toBeFalsy();
+        expect(table[2][7].isWrong).toBeFalsy();
+        expect(table[2][8].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells revalidates row correctly after wrong value is removed', () => {
+        const table = service.generateEmptyTable();
+        table[2][0].value = '8';
+        table[2][1].value = '7';
+        table[2][2].value = '5';
+        table[2][3].value = '';
+        table[2][4].value = '5';
+        table[2][5].value = '1';
+        table[2][6].value = '7';
+        table[2][7].value = '';
+        table[2][8].value = '5';
+
+        service.validateAllCells(table);
+        table[2][6].value = '';
+        service.validateAllCells(table);
+
+        expect(table[2][0].isWrong).toBeFalsy();
+        expect(table[2][1].isWrong).toBeFalsy();
+        expect(table[2][2].isWrong).toBeTruthy();
+        expect(table[2][3].isWrong).toBeFalsy();
+        expect(table[2][4].isWrong).toBeTruthy();
+        expect(table[2][5].isWrong).toBeFalsy();
+        expect(table[2][6].isWrong).toBeFalsy();
+        expect(table[2][7].isWrong).toBeFalsy();
+        expect(table[2][8].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells revalidates column correctly after value is corrected', () => {
+        const table = service.generateEmptyTable();
+        table[0][3].value = '8';
+        table[1][3].value = '7';
+        table[2][3].value = '5';
+        table[3][3].value = '';
+        table[4][3].value = '5';
+        table[5][3].value = '1';
+        table[6][3].value = '7';
+        table[7][3].value = '';
+        table[8][3].value = '5';
+
+        service.validateAllCells(table);
+        table[6][3].value = '6';
+        service.validateAllCells(table);
+
+        expect(table[0][3].isWrong).toBeFalsy();
+        expect(table[1][3].isWrong).toBeFalsy();
+        expect(table[2][3].isWrong).toBeTruthy();
+        expect(table[3][3].isWrong).toBeFalsy();
+        expect(table[4][3].isWrong).toBeTruthy();
+        expect(table[5][3].isWrong).toBeFalsy();
+        expect(table[6][3].isWrong).toBeFalsy();
+        expect(table[7][3].isWrong).toBeFalsy();
+        expect(table[8][3].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells revalidates column correctly after wrong value is removed', () => {
+        const table = service.generateEmptyTable();
+        table[0][3].value = '8';
+        table[1][3].value = '7';
+        table[2][3].value = '5';
+        table[3][3].value = '';
+        table[4][3].value = '5';
+        table[5][3].value = '1';
+        table[6][3].value = '7';
+        table[7][3].value = '';
+        table[8][3].value = '5';
+
+        service.validateAllCells(table);
+        table[6][3].value = '';
+        service.validateAllCells(table);
+
+        expect(table[0][3].isWrong).toBeFalsy();
+        expect(table[1][3].isWrong).toBeFalsy();
+        expect(table[2][3].isWrong).toBeTruthy();
+        expect(table[3][3].isWrong).toBeFalsy();
+        expect(table[4][3].isWrong).toBeTruthy();
+        expect(table[5][3].isWrong).toBeFalsy();
+        expect(table[6][3].isWrong).toBeFalsy();
+        expect(table[7][3].isWrong).toBeFalsy();
+        expect(table[8][3].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells revalidates square correctly after value is corrected', () => {
+        const table = service.generateEmptyTable();
+        table[6][3].value = '8';
+        table[6][4].value = '7';
+        table[6][5].value = '5';
+        table[7][3].value = '';
+        table[7][4].value = '5';
+        table[7][5].value = '1';
+        table[8][3].value = '7';
+        table[8][4].value = '';
+        table[8][5].value = '5';
+
+        service.validateAllCells(table);
+        table[8][3].value = '6';
+        service.validateAllCells(table);
+
+        expect(table[6][3].isWrong).toBeFalsy();
+        expect(table[6][4].isWrong).toBeFalsy();
+        expect(table[6][5].isWrong).toBeTruthy();
+        expect(table[7][3].isWrong).toBeFalsy();
+        expect(table[7][4].isWrong).toBeTruthy();
+        expect(table[7][5].isWrong).toBeFalsy();
+        expect(table[8][3].isWrong).toBeFalsy();
+        expect(table[8][4].isWrong).toBeFalsy();
+        expect(table[8][5].isWrong).toBeTruthy();
+    });
+
+    it('#validateAllCells revalidates square correctly after wrong value is removed', () => {
+        const table = service.generateEmptyTable();
+        table[6][3].value = '8';
+        table[6][4].value = '7';
+        table[6][5].value = '5';
+        table[7][3].value = '';
+        table[7][4].value = '5';
+        table[7][5].value = '1';
+        table[8][3].value = '7';
+        table[8][4].value = '';
+        table[8][5].value = '5';
+
+        service.validateAllCells(table);
+        table[8][3].value = '';
+        service.validateAllCells(table);
+
+        expect(table[6][3].isWrong).toBeFalsy();
+        expect(table[6][4].isWrong).toBeFalsy();
+        expect(table[6][5].isWrong).toBeTruthy();
+        expect(table[7][3].isWrong).toBeFalsy();
+        expect(table[7][4].isWrong).toBeTruthy();
+        expect(table[7][5].isWrong).toBeFalsy();
+        expect(table[8][3].isWrong).toBeFalsy();
+        expect(table[8][4].isWrong).toBeFalsy();
+        expect(table[8][5].isWrong).toBeTruthy();
     });
 });
