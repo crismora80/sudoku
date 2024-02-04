@@ -18,8 +18,10 @@ export class SudokuLogicService {
     resetTable(sudokuTable: SudokuTable): void {
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j++) {
-                if (!sudokuTable[i][j].isFixed)
+                if (!sudokuTable[i][j].isFixed) {
                     sudokuTable[i][j].value = undefined;
+                    sudokuTable[i][j].isWrong = false;
+                }
             }
         }
     }
