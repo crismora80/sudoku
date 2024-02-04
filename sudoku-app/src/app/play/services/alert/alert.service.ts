@@ -76,23 +76,4 @@ export class AlertService {
         });
         alert.present();
     }
-
-    async showNewGameAlert(alertActions: AlertActions): Promise<void> {
-        const alert = await this.alertCtrl.create({
-            header: "New game",
-            message: "Are you sure you want to start a new game?",
-            backdropDismiss: false,
-            buttons: [
-                {
-                    text: 'No',
-                    cssClass: 'secondary-btn'
-                },
-                {
-                    text: 'Yes',
-                    handler: alertActions.yes
-                }
-            ]
-        });
-        alert.present();
-    }
 }
