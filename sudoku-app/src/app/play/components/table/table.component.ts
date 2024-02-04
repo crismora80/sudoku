@@ -39,10 +39,6 @@ export class TableComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  onValueChanged(): void {
-    this.valueChanged.emit();
-  }
-
   onTileClicked(x: number, y: number): void {
     this.selectedX = x;
     this.selectedY = y;
