@@ -12,15 +12,6 @@
 </div>
 
 <ion-footer>
-    <app-button-text id="present-reset-alert" [text]="'Reset Game'"></app-button-text>
-    <app-button-text id="present-new-alert" [text]="'New Game'"></app-button-text>
+    <app-button-text [text]="'Reset Game'" (click)="onResetClicked()"></app-button-text>
+    <app-button-text [text]="'New Game'" (click)="onNewGameClicked()"></app-button-text>
 </ion-footer>
-
-<ion-alert trigger="present-reset-alert" header="Reset" message="Are you sure you want to reset the current game?"
-    backdropDismiss="false"
-    [buttons]="[{text: 'No', cssClass:'secondary-btn'}, {text: 'Yes', handler: onConfirmResetGameClicked.bind(this)}]">
-</ion-alert>
-<ion-alert trigger="present-new-alert" header="New game" message="Are you sure you want to start a new game?"
-    backdropDismiss="false"
-    [buttons]="[{text: 'No', cssClass:'secondary-btn'}, {text: 'Yes', handler: onConfirmNewGameClicked.bind(this)}]">
-</ion-alert>

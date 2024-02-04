@@ -14,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
 import { GamesFileParserService } from './services/games-file-parser/games-file-parser.service';
 import { GameChooserService } from './services/game-chooser/game-chooser.service';
 import { CanDeactivateGuard } from './guards/can.leave.page.guard';
+import { AlertService } from './services/alert/alert.service';
 
 @NgModule({
   declarations: [OnScreenKeyboardComponent, PlayPageComponent, TableComponent, TileComponent],
@@ -25,6 +26,6 @@ import { CanDeactivateGuard } from './guards/can.leave.page.guard';
     SharedModule,
     HttpClientModule
   ],
-  providers: [SudokuLogicService, GamesFileParserService, GameChooserService, CanDeactivateGuard]
+  providers: [SudokuLogicService, GamesFileParserService, GameChooserService, AlertService, CanDeactivateGuard]
 })
 export class PlayModule { }

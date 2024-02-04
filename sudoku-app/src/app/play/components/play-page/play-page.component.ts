@@ -1,8 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core';
 
 import { SudokuLogicService } from '../../services/sudoku-logic/sudoku-logic.service';
 import { DifficultyLevel, SudokuTable } from '../table/table.model';
@@ -10,6 +8,7 @@ import { TableMediatorService } from '../table/table.mediator.service';
 import { ButtonIcon } from '../../../shared/button-icon/button-icon.module';
 import { GameChooserService } from '../../services/game-chooser/game-chooser.service';
 import { CanDeactivateComponent } from '../../guards/can.leave.page.guard';
+import { AlertService } from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-play-page',
@@ -30,7 +29,7 @@ export class PlayPageComponent implements OnInit, CanDeactivateComponent {
     private router: Router,
     private tableMediatorSvc: TableMediatorService,
     private gameChooserSvc: GameChooserService,
-    private alertController: AlertController
+    private alertSvc: AlertService
   ) { }
 
   ngOnInit() {
@@ -41,61 +40,25 @@ export class PlayPageComponent implements OnInit, CanDeactivateComponent {
     })
   }
 
-  onConfirmNewGameClicked(): void {
-    this.getNewTable();
-  }
-
-  onConfirmResetGameClicked(): void {
-    this.sudokuLogicSvc.resetTable(this.sudokuTable);
-  }
-
   async canDeactivate(): Promise<boolean> {
-    const alert = await this.alertController.create({
-      header: "Quit",
-      message: "Are you sure you want to quit? The progress will be lost.",
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'No',
-          cssClass: 'secondary-btn',
-          handler: () => { }
-        },
-        {
-          text: 'Yes',
-          role: 'leave',
-          handler: () => { }
-        }
-      ]
-    });
-    alert.present();
+    if (this.sudokuLogicSvc.checkIfTableIsFullAndCorrect(this.sudokuTable)) {
+      return true;
+    }
+    return this.alertSvc.showQuitAlert();
+  }
 
-    return new Promise<boolean>((resolve) => {
-      alert.onDidDismiss().then((data: OverlayEventDetail) => {
-        resolve(data.role === 'leave');
-      });
-    });
+  onResetClicked(): void {
+    this.alertSvc.showResetAlert({ yes: this.onConfirmResetGameClicked.bind(this) })
+  }
+
+  onNewGameClicked(): void {
+    this.alertSvc.showNewGameAlert({ yes: this.onConfirmNewGameClicked.bind(this) })
   }
 
   async onKeyPressed(digit: string) {
     this.tableMediatorSvc.updateCell$.next(digit);
-    if (this.sudokuLogicSvc.checkIfTableIsFull(this.sudokuTable) && this.sudokuLogicSvc.checkIfTableIsCorrect(this.sudokuTable)) {
-      const alert = await this.alertController.create({
-        header: "Congratulations",
-        message: "You solved the puzzle!",
-        backdropDismiss: false,
-        buttons: [
-          {
-            text: 'Close',
-            cssClass: 'secondary-btn',
-            handler: this.goBackToMainPage.bind(this)
-          },
-          {
-            text: 'New game',
-            handler: this.onConfirmNewGameClicked.bind(this)
-          }
-        ]
-      });
-      alert.present();
+    if (this.sudokuLogicSvc.checkIfTableIsFullAndCorrect(this.sudokuTable)) {
+      this.alertSvc.showWonGameAlert({ no: this.goBackToMainPage.bind(this), yes: this.onConfirmNewGameClicked.bind(this) });
     }
   }
 
@@ -105,6 +68,14 @@ export class PlayPageComponent implements OnInit, CanDeactivateComponent {
 
   private async getNewTable(): Promise<void> {
     this.gameChooserSvc.getGame(this.difficultyLevel).subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
-    // this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+    //this.gameChooserSvc.getDummyGame().subscribe((sudokuTable: SudokuTable) => this.sudokuTable = sudokuTable);
+  }
+
+  private onConfirmResetGameClicked(): void {
+    this.sudokuLogicSvc.resetTable(this.sudokuTable);
+  }
+
+  private onConfirmNewGameClicked(): void {
+    this.getNewTable();
   }
 }
