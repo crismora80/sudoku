@@ -9,9 +9,5 @@
 <div class="content">
     <app-table [sudokuTable]="sudokuTable"></app-table>
     <app-on-screen-keyboard (keyPressed)="onKeyPressed($event)"></app-on-screen-keyboard>
+    <app-button-icon class="action-button" [icon]="ButtonIcon.refresh" (click)="onResetClicked()"></app-button-icon>
 </div>
-
-<ion-footer>
-    <app-button-text [text]="'Reset Game'" (click)="onResetClicked()"></app-button-text>
-    <app-button-text [text]="'New Game'" (click)="onNewGameClicked()"></app-button-text>
-</ion-footer>

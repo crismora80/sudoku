@@ -51,10 +51,6 @@ export class PlayPageComponent implements OnInit, CanDeactivateComponent {
     this.alertSvc.showResetAlert({ yes: this.onConfirmResetGameClicked.bind(this) })
   }
 
-  onNewGameClicked(): void {
-    this.alertSvc.showNewGameAlert({ yes: this.onConfirmNewGameClicked.bind(this) })
-  }
-
   async onKeyPressed(digit: string) {
     this.tableMediatorSvc.updateCell$.next(digit);
     if (this.sudokuLogicSvc.checkIfTableIsFullAndCorrect(this.sudokuTable)) {
