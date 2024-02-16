@@ -1,7 +1,9 @@
+@import './../../../../theme/constants.scss';
+
 .sudoku-table-row {
     display: flex;
     aspect-ratio: 9/1;
-    width: min(100%, 50vh);
+    width: min(100%, $max-width);
     margin: auto;
     pointer-events: none;
 

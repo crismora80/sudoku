@@ -1,9 +1,11 @@
+@import './../../../../theme/constants.scss';
+
 .row {
     display: flex;
     justify-content: space-around;
     aspect-ratio: 6/1;
 
-    width: min(100%, 50vh);
+    width: min(100%, $max-width);
     margin: auto;
 
     .key {
@@ -12,6 +14,18 @@
 
         &.clear {
             font-size: 4.5vw;
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        button {
+            padding: 0 !important;
         }
     }
 }

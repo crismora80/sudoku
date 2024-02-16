@@ -24,11 +24,11 @@ ion-alert {
         max-width: max-content;
 
         .alert-title.sc-ion-alert-md {
-            font-size: 2rem;
+            font-size: max(2rem, 6vw);
         }
 
         .alert-message.sc-ion-alert-md {
-            font-size: 1.25rem;
+            font-size: max(1.25rem, 3.75vw);
             max-width: 70vw;
         }
 
@@ -45,10 +45,9 @@ ion-alert {
                 background-color: var(--ion-color-primary);
                 color: white;
                 border-radius: 64px;
-                padding: 0 26px;
-                font-size: 1.5rem;
-                //height: 27px;
-                height: 48px;
+                padding: 0 max(1.5rem, 4.5vw);
+                font-size: max(1.5rem, 4.5vw);
+                height: max(48px, 6vw);
                 margin: 0 8px;
 
                 &:last-child {
@@ -61,4 +60,8 @@ ion-alert {
             }
         }
     }
+}
+
+ion-back-button {
+    --icon-font-size: max(1.5rem, 6vw);
 }
