@@ -1,24 +1,42 @@
 @import './../../../../theme/constants.scss';
 
+:host {
+    --border-width: 2px;
+}
+
+@media screen and (min-width: 480px) {
+    :host {
+        --border-width: 3px;
+    }
+}
+
+
+@media screen and (min-width: 768px) {
+    :host {
+        --border-width: 4px;
+    }
+}
+
 .tile {
-    border: 1px solid black;
+    border: solid black;
+    border-width: 1px;
     background-color: white;
     height: 100%;
 
     &.top-border-thick {
-        border-top-width: 2px;
+        border-top-width: var(--border-width);
     }
 
     &.right-border-thick {
-        border-right-width: 2px;
+        border-right-width: var(--border-width);
     }
 
     &.bottom-border-thick {
-        border-bottom-width: 2px;
+        border-bottom-width: var(--border-width);
     }
 
     &.left-border-thick {
-        border-left-width: 2px;
+        border-left-width: var(--border-width);
     }
 
     &.focused {
