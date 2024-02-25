@@ -124,16 +124,16 @@ export class SudokuLogicService {
         let noToRemove = 0;
         switch (difficultyLevel) {
             case DifficultyLevel.Easy:
-                // [42, 46]
-                noToRemove = Math.floor(Math.random() * 5) + 42;
+                // [42, 45]
+                noToRemove = Math.floor(Math.random() * 4) + 42;
                 break;
             case DifficultyLevel.Medium:
-                // [44, 48]
-                noToRemove = Math.floor(Math.random() * 5) + 44;
+                // [46, 49]
+                noToRemove = Math.floor(Math.random() * 4) + 46;
                 break;
             case DifficultyLevel.Hard:
-                // [51, 53]
-                noToRemove = Math.floor(Math.random() * 3) + 51;
+                // [50, 53]
+                noToRemove = Math.floor(Math.random() * 4) + 50;
                 break;
         }
         this.DFS_remove(completeSudokuTable, noToRemove);
