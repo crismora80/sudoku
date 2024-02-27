@@ -1,0 +1,15 @@
+@import './../../theme/constants.scss';
+
+:host {
+    background-color: $light-gray;
+}
+
+ion-header {
+    ion-buttons {
+        position: absolute;
+    }
+
+    ion-title {
+        text-align: center;
+    }
+}

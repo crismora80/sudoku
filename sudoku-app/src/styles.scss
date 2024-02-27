@@ -65,3 +65,15 @@ ion-alert {
 ion-back-button {
     --icon-font-size: max(1.5rem, 6vw);
 }
+
+ion-title {
+    color: black;
+}
+
+ion-header {
+    --ion-background-color: transparent;
+}
+
+ion-content {
+    --ion-color-light: var(--light-gray);
+}

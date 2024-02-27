@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./play/play.module').then(m => m.PlayModule)
   },
   {
+    path: 'privacy-policy',
+    loadComponent: () => import('./privacy-policy-page/privacy-policy-page.component').then(mod => mod.PrivacyPolicyPageComponent)
+  },
+  {
     path: '',
     redirectTo: 'choose-difficulty',
     pathMatch: 'full'
