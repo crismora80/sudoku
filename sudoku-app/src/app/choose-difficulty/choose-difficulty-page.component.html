@@ -5,5 +5,9 @@
         <app-button-text [text]="'Medium'" (click)="navigateToPlayPage(DifficultyLevel.Medium)"></app-button-text>
         <app-button-text [text]="'Hard'" (click)="navigateToPlayPage(DifficultyLevel.Hard)"></app-button-text>
     </div>
-    <a routerLink="/privacy-policy">Privacy Policy</a>
+    <ion-footer>
+        <a routerLink="/privacy-policy">Privacy Policy</a>
+        <span>&nbsp;|&nbsp;</span>
+        <a routerLink="/legal">Legal</a>
+    </ion-footer>
 </div>

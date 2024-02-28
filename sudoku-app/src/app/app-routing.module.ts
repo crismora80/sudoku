@@ -12,7 +12,11 @@ const routes: Routes = [
   },
   {
     path: 'privacy-policy',
-    loadComponent: () => import('./privacy-policy-page/privacy-policy-page.component').then(mod => mod.PrivacyPolicyPageComponent)
+    loadComponent: () => import('./privacy-policy/privacy-policy-page.component').then(mod => mod.PrivacyPolicyPageComponent)
+  },
+  {
+    path: 'legal',
+    loadComponent: () => import('./legal/legal-page.component').then(mod => mod.LegalPageComponent)
   },
   {
     path: '',

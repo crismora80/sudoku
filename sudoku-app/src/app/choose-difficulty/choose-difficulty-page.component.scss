@@ -24,8 +24,14 @@
         }
     }
 
-    a {
-        text-decoration-line: none;
+
+    ion-footer {
+        text-align: center;
+        box-shadow: none;
         margin-bottom: 1rem;
+
+        a {
+            text-decoration-line: none;
+        }
     }
 }
