@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.mora.sudoku;
 
 import com.getcapacitor.BridgeActivity;
 
