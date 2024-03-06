@@ -36,21 +36,21 @@ describe('createGames', () => {
   // }, 9999999999999999);
 
   // DONE
-  // it('creates 100 medium games', done => {
-  //   const noOfGames = 100;
-  //   const sudokuTables: SudokuTable[] = [];
+  it('creates 100 medium games', done => {
+    const noOfGames = 100;
+    const sudokuTables: SudokuTable[] = [];
 
-  //   for (let i = 0; i < noOfGames; i++) {
-  //     sudokuTables.push(sudokuLogicSvc.generateSudoku(DifficultyLevel.Medium));
-  //     console.log("generated game " + (i + 1));
-  //   }
+    for (let i = 0; i < noOfGames; i++) {
+      sudokuTables.push(sudokuLogicSvc.generateSudoku(DifficultyLevel.Medium));
+      console.log("generated game " + (i + 1));
+    }
 
-  //   gamesFileParserSvc.writeGames(sudokuTables, './../assets/data/medium.json').subscribe({
-  //     next: (v) => console.log(v),
-  //     error: (e) => console.error(e),
-  //     complete: () => { console.info('complete'); done(); }
-  //   })
-  // }, 9999999999999999);
+    gamesFileParserSvc.writeGames(sudokuTables, './../assets/data/medium.json').subscribe({
+      next: (v) => console.log(v),
+      error: (e) => console.error(e),
+      complete: () => { console.info('complete'); done(); }
+    })
+  }, 9999999999999999);
 
   // DONE
   // it('creates 100 hard games', done => {

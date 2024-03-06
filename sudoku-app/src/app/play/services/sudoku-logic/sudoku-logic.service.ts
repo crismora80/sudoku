@@ -124,12 +124,12 @@ export class SudokuLogicService {
         let noToRemove = 0;
         switch (difficultyLevel) {
             case DifficultyLevel.Easy:
-                // [42, 45]
-                noToRemove = Math.floor(Math.random() * 4) + 42;
+                // [39, 42]
+                noToRemove = Math.floor(Math.random() * 4) + 39;
                 break;
             case DifficultyLevel.Medium:
-                // [46, 49]
-                noToRemove = Math.floor(Math.random() * 4) + 46;
+                // [44, 47]
+                noToRemove = Math.floor(Math.random() * 4) + 44;
                 break;
             case DifficultyLevel.Hard:
                 // [50, 53]
