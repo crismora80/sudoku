@@ -11,6 +11,7 @@
     .title {
         font-size: max(6rem, 16vw);
         margin-top: 4rem;
+        color: black;
     }
 
     .buttons-container {
@@ -33,6 +34,10 @@
         a {
             text-decoration-line: none;
             font-size: max(1rem, 2vw);
+        }
+
+        span {
+            color: black;
         }
     }
 }
