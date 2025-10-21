@@ -1,13 +1,24 @@
-<div class="row">
-  <ion-button *ngFor="let digit of firstDigits" class="key ion-no-padding" color="light" (click)="onKeyPressed(digit)">
-    {{digit}}
-  </ion-button>
-</div>
-<div class="row">
-  <ion-button *ngFor="let digit of lastDigits" class="key ion-no-padding" color="light" (click)="onKeyPressed(digit)">
-    {{digit}}
-  </ion-button>
-  <ion-button class="key ion-no-padding clear" color="light" (click)="onKeyPressed('')">
-    <ion-icon name="close-outline"></ion-icon>
-  </ion-button>
+<div class="keyboard">
+  <div class="numbers">
+    <div class="row">
+      <ion-button *ngFor="let digit of firstDigits" class="key ion-no-padding" color="light"
+        (click)="onKeyPressed(digit)">
+        {{digit}}
+      </ion-button>
+    </div>
+    <div class="row">
+      <ion-button *ngFor="let digit of lastDigits" class="key ion-no-padding" color="light"
+        (click)="onKeyPressed(digit)">
+        {{digit}}
+      </ion-button>
+      <ion-button class="key ion-no-padding clear" color="light" (click)="onKeyPressed('')">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+  <div class="edit">
+    <ion-button class="key ion-no-padding" [color]="isInEditMode ? 'primary' : 'light'" (click)="onEditPressed()">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-button>
+  </div>
 </div>

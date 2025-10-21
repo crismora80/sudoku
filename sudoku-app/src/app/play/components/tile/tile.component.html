@@ -7,6 +7,12 @@
     'variable-input': !tileValue?.isFixed,
     'wrong': tileValue?.isWrong
 }">
-    <ion-input #input clearOnEdit="true" readonly [value]="tileValue?.value">
+    <ion-input #singleDigitInput *ngIf="!tileValue?.values || tileValue?.values?.length === 0; else multiDigitInput"
+        clearOnEdit="true" readonly [value]="tileValue?.value">
     </ion-input>
+    <ng-template #multiDigitInput>
+        <div class="multi-values-container">
+            <span *ngFor="let x of (tileValue?.values ?? [])" class="multi-value">{{x}}</span>
+        </div>
+    </ng-template>
 </div>

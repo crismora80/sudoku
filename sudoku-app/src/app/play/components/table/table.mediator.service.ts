@@ -6,4 +6,5 @@ import { Subject } from "rxjs";
 })
 export class TableMediatorService {
     updateCell$ = new Subject<string>();
+    toggleEditMode$ = new Subject<boolean>();
 }

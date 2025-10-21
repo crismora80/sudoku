@@ -65,4 +65,18 @@
         min-height: unset;
         font-size: 7vw;
     }
+
+    .multi-values-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: start;
+        height: 100%;
+
+        .multi-value {
+            flex-basis: 33.3%;
+            text-align: center;
+            height: 33.3%;
+            font-size: 3vw;
+        }
+    }
 }

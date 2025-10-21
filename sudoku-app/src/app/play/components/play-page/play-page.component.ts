@@ -58,6 +58,10 @@ export class PlayPageComponent implements OnInit, CanDeactivateComponent {
     }
   }
 
+  onEditPressed(editMode: boolean): void {
+    this.tableMediatorSvc.toggleEditMode$.next(editMode);
+  }
+
   private goBackToMainPage(): void {
     this.router.navigateByUrl('');
   }

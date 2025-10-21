@@ -10,6 +10,9 @@ export class OnScreenKeyboardComponent implements OnInit {
   lastDigits = ["6", "7", "8", "9"]
 
   @Output() keyPressed = new EventEmitter<string>();
+  @Output() editPressed = new EventEmitter<boolean>();
+
+  isInEditMode = false;
 
   constructor() { }
 
@@ -17,5 +20,10 @@ export class OnScreenKeyboardComponent implements OnInit {
 
   onKeyPressed(digit: string): void {
     this.keyPressed.emit(digit);
+  }
+
+  onEditPressed(): void {
+    this.isInEditMode = !this.isInEditMode;
+    this.editPressed.emit(this.isInEditMode);
   }
 }

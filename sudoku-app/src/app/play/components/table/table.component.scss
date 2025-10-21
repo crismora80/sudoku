@@ -7,7 +7,11 @@
     margin: auto;
     pointer-events: none;
 
-    app-tile.enabled {
-        pointer-events: all;
+    app-tile {
+        width: 100%;
+
+        &.enabled {
+            pointer-events: all;
+        }
     }
 }

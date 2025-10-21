@@ -14,11 +14,15 @@ export class TileComponent implements OnInit {
   @Input() borders: TileBorders = DefaultTileBorders;
   @Input() tileValue?: TileValue;
   @Input() focused = false;
-  @ViewChild('input', { static: true }) ionInputEl!: IonInput;
 
-  numbersPattern = /[^1-9]/;
+  @ViewChild('singleDigitInput', { static: true }) ionInputEl!: IonInput;
 
   constructor() { }
 
   ngOnInit() { }
+
+  multiValueEntered(event: KeyboardEvent): void {
+    const value = event.key;
+
+  }
 }

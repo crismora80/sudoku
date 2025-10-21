@@ -8,6 +8,7 @@
 
 <div class="content">
     <app-table [sudokuTable]="sudokuTable"></app-table>
-    <app-on-screen-keyboard (keyPressed)="onKeyPressed($event)"></app-on-screen-keyboard>
+    <app-on-screen-keyboard (keyPressed)="onKeyPressed($event)" (editPressed)="onEditPressed($event)">
+    </app-on-screen-keyboard>
     <app-button-icon class="action-button" [icon]="ButtonIcon.refresh" (click)="onResetClicked()"></app-button-icon>
 </div>

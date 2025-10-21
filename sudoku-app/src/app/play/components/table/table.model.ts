@@ -1,5 +1,6 @@
 export interface TileValue {
     value?: string;
+    values?: string[];
     isFixed: boolean;
     isWrong?: boolean;
 }

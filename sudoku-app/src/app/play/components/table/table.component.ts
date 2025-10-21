@@ -1,7 +1,7 @@
 import { OnDestroy } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { findIndex, Subject, takeUntil } from 'rxjs';
 import { TableMediatorService } from './table.mediator.service';
 
 import { SudokuTable } from './table.model';
@@ -21,6 +21,8 @@ export class TableComponent implements OnInit, OnDestroy {
 
   indexes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
+  isInEditMode = false;
+
   private destroy$ = new Subject<void>();
 
   constructor(private tableMediatorSvc: TableMediatorService, private sudokuLogicService: SudokuLogicService) { }
@@ -28,10 +30,35 @@ export class TableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.tableMediatorSvc.updateCell$.pipe(takeUntil(this.destroy$)).subscribe((value: string) => {
       if (this.selectedX >= 0 && this.selectedY >= 0) {
-        this.sudokuTable[this.selectedX][this.selectedY].value = value;
+        var cell = this.sudokuTable[this.selectedX][this.selectedY];
+        if (!this.isInEditMode) {
+          cell.value = value;
+          cell.values = [];
+        }
+        else {
+          if (cell.values) {
+            if (value === '') {
+              cell.values = [];
+            } else {
+              if (cell.values.findIndex(x => x === value) === -1) {
+                cell.values.push(value);
+              }
+            }
+          } else {
+            cell.values = [value];
+          }
+          if (cell.value) {
+            cell.values.push(cell.value);
+          }
+          cell.value = '';
+        }
         this.sudokuLogicService.validateAllCells(this.sudokuTable);
       }
-    })
+    });
+
+    this.tableMediatorSvc.toggleEditMode$.pipe(takeUntil(this.destroy$)).subscribe((editMode: boolean) => {
+      this.isInEditMode = editMode;
+    });
   }
 
   ngOnDestroy(): void {
