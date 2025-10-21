@@ -29,7 +29,7 @@
     "@capacitor/haptics": "^6.0.0",
     "@capacitor/keyboard": "^6.0.0",
     "@capacitor/status-bar": "^6.0.0",
-    "@capawesome/capacitor-screen-orientation": "^5.0.1",
+    "@capawesome/capacitor-screen-orientation": "^6.0.0",
     "@ionic/angular": "^7.0.0",
     "@types/jest": "^29.5.11",
     "ionicons": "^7.0.0",
